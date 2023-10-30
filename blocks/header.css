@@ -1,3 +1,12 @@
 .header {
-  padding-top: 45px;
+  width: 100%;
+  max-width: 880px;
+  margin: 0;
+  border-bottom: 1px solid #545454;
+}
+
+.logo {
+  width: 173px;
+  height: 33px;
+  padding-bottom: 41px;
 }

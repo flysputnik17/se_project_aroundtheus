@@ -1,0 +1,64 @@
+.elements {
+  max-width: 880px;
+  height: 742px;
+  display: flex;
+  padding-top: 51px;
+  align-items: center;
+  margin: 0;
+  color: black;
+}
+
+.cards {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 50% 50%;
+  grid-column-gap: 17px;
+  grid-row-gap: 20px;
+  list-style: none;
+}
+
+.card {
+  margin: 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 282px;
+  max-height: 361px;
+  border-radius: 10px;
+  border: none;
+}
+
+.card__img {
+  max-width: 282px;
+  height: 282px;
+}
+
+.card__description {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 25px 20px;
+}
+
+.card__description-title {
+  margin: 0;
+  max-width: 193px;
+  max-height: 29px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29.05px;
+}
+
+.card__description-button {
+  background: url(../images/heart-icon.png);
+  background-size: cover;
+  align-items: center;
+  width: 21px;
+  height: 18px;
+  color: black;
+  border: none;
+  margin-left: auto;
+}
