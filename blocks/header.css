@@ -1,7 +1,8 @@
 .header {
-  width: 100%;
-  max-width: 880px;
-  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  padding-top: 45px;
   border-bottom: 1px solid #545454;
 }
 
@@ -9,4 +10,18 @@
   width: 173px;
   height: 33px;
   padding-bottom: 41px;
+}
+
+@media (max-width: 320px) {
+  .header {
+    height: 56px;
+    margin: 0;
+    padding-top: 28px;
+  }
+  .logo {
+    width: 126px;
+    height: 24px;
+    padding-bottom: 32px;
+    padding-left: 27px;
+  }
 }
