@@ -2,14 +2,13 @@
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 auto;
-  padding-top: 45px;
   border-bottom: 1px solid rgb(84 84 84 / 0.7);
 }
 
 .logo {
   width: 173px;
   height: 33px;
-  padding-bottom: 41px;
+  padding: 45px 0 41px 0;
 }
 
 @media (max-width: 431px) and (min-width: 321px) {
@@ -25,13 +24,9 @@
 }
 
 @media (max-width: 320px) {
-  .header {
-    padding-top: 28px;
-  }
   .logo {
     width: 126px;
     height: 24px;
-    padding-bottom: 32px;
-    padding-left: 27px;
+    padding: 28px 0 32px 27px;
   }
 }
