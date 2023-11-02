@@ -41,9 +41,6 @@
 }
 
 @media (max-width: 430px) and (min-width: 321px) {
-  .content {
-    width: 100%;
-  }
   .page__content {
     margin: 0 10px 0 10px;
   }

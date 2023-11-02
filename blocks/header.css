@@ -14,10 +14,7 @@
 
 @media (max-width: 431px) and (min-width: 321px) {
   .header {
-    height: 56px;
-    margin: 0 auto;
     padding-top: 28px;
-    width: 100%;
   }
   .logo {
     width: 126px;
@@ -29,10 +26,7 @@
 
 @media (max-width: 320px) {
   .header {
-    height: 56px;
-    margin: 0 auto;
     padding-top: 28px;
-    width: 100%;
   }
   .logo {
     width: 126px;
