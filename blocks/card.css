@@ -37,7 +37,7 @@
 .card__description-button {
   background: url(../images/heart-icon.svg);
   background-size: cover;
-  width: 21px;
+  min-width: 21px;
   height: 18px;
   color: black;
   border: none;
