@@ -98,6 +98,30 @@
         <h2 class="footer__author">© 2022 Around The U.S.</h2>
       </footer>
     </div>
+    <div class="modal modal_opened">
+      <div class="modal__container">
+        <button class="modal__closeButton"></button>
+        <h2 class="modal__heading">Edit profile</h2>
+        <form class="modal__form">
+          <fieldset class="modal__form-fieldset">
+            <input
+              class="modal__form-input"
+              type="text"
+              name="profile__name"
+              placeholder="name"
+            />
+
+            <input
+              class="modal__form-input"
+              type="text"
+              name="profile__descripton"
+              placeholder="descripton"
+            />
+          </fieldset>
+          <button type="submit" class="modal__form-button">Save</button>
+        </form>
+      </div>
+    </div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
