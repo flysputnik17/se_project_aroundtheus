@@ -81,6 +81,13 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
+  border-radius: 2px;
+}
+.modal__form-button:hover {
+  opacity: 0.8;
+}
+.modal__close-button:hover {
+  opacity: 0.6;
 }
 @media (max-width: 570px) and (min-width: 431px) {
   .modal__close-button {
