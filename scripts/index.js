@@ -1,7 +1,7 @@
 let initialCards = [
   {
     name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
   },
   {
     name: "Lake Louise",
@@ -36,22 +36,42 @@ const nameInput = modal.querySelector("#modal_form-name"); //the profile name in
 const profileJob = document.querySelector(".profile__descripton"); //the profile job from the page
 const jobInput = modal.querySelector("#modal_form-job"); //the profile job input form modal
 
+const cardListEl = document.querySelector(".cards");
+
+const cardTemplate =
+  document.querySelector("#card-tamplate").content.firstElementChild;
+
+function closePopop() {
+  modal.classList.remove("modal_opened");
+}
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault(); //preventin the refresh of the page
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopop();
+}
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardTitleEl = cardElement.querySelector(".card__description-title");
+  const cardImageEl = cardElement.querySelector(".card__img");
+  cardTitleEl.textContent = data.name;
+  cardImageEl.src = data.link;
+  return cardElement;
+}
+
 editButton.addEventListener("click", function () {
   modal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-closeEditButton.addEventListener("click", function () {
-  modal.classList.remove("modal_opened");
+closeEditButton.addEventListener("click", closePopop);
+
+initialCards.forEach((data) => {
+  const cardElement = getCardElement(data);
+  cardListEl.append(cardElement);
 });
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault(); //preventin the refresh of the page
-
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  modal.classList.remove("modal_opened");
-}
 
 modal.addEventListener("submit", handleProfileFormSubmit);
