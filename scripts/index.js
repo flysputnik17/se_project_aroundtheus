@@ -27,8 +27,9 @@ let initialCards = [
 
 const editButton = document.querySelector(".profile__edit-button");
 const modal = document.querySelector(".modal");
-const closeEditButton = modal.querySelector(".modal__closeButton");
+const closeEditButton = modal.querySelector(".modal__close-button");
 const submitButton = modal.querySelector(".modal__form-button");
+const modalForm = modal.querySelector(".modal__form");
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
 const nameInput = modal.querySelector("#modal_form-name"); //the profile name input in modal
@@ -39,7 +40,7 @@ const jobInput = modal.querySelector("#modal_form-job"); //the profile job input
 const cardListEl = document.querySelector(".cards");
 
 const cardTemplate =
-  document.querySelector("#card-tamplate").content.firstElementChild;
+  document.querySelector("#card-template").content.firstElementChild;
 
 function closePopop() {
   modal.classList.remove("modal_opened");
@@ -75,4 +76,4 @@ initialCards.forEach((data) => {
   cardListEl.append(cardElement);
 });
 
-modal.addEventListener("submit", handleProfileFormSubmit);
+modalForm.addEventListener("submit", handleProfileFormSubmit);

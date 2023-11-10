@@ -25,7 +25,7 @@
   border-radius: 10px;
 }
 
-.modal__closeButton {
+.modal__close-button {
   position: absolute;
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
@@ -66,7 +66,7 @@
 .modal__form-input {
   padding-bottom: 13px;
   border: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .modal__form-button {
@@ -77,13 +77,13 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.1;
-  border: none;
+  border: 2px solid rgb(0, 0, 0);
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
 @media (max-width: 570px) and (min-width: 431px) {
-  .modal__closeButton {
+  .modal__close-button {
     bottom: calc(100% + 5px);
     left: calc(90% + 5px);
   }
@@ -96,7 +96,7 @@
   .modal__container {
     max-width: 282px;
   }
-  .modal__closeButton {
+  .modal__close-button {
     width: 26px;
     height: 26px;
     bottom: calc(100% + 15px);
@@ -109,5 +109,8 @@
   }
   .modal__form {
     padding: 0 22px 25px 22px;
+  }
+  .modal__form-button {
+    font-size: 14px;
   }
 }
