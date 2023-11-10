@@ -31,6 +31,12 @@ const closeEditButton = document.querySelector(".modal__closeButton");
 
 editButton.addEventListener("click", function () {
   modal.classList.add("modal_opened");
+  let nameForm = document.querySelector(".profile__name");
+  let modalFormName = document.querySelector("#modal_form-name");
+  modalFormName.value = nameForm.textContent;
+  let jodForm = document.querySelector(".profile__descripton");
+  let modalFormJob = document.querySelector("#modal_form-job");
+  modalFormJob.value = jodForm.textContent;
 });
 
 closeEditButton.addEventListener("click", function () {
