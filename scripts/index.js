@@ -29,7 +29,7 @@ let initialCards = [
 const editButton = document.querySelector(".profile__edit-button"); //the profile edit button select
 const modal = document.querySelector(".modal"); //the modal selecting
 const closeEditButton = modal.querySelector(".modal__close-button"); //the modal close button selecting
-const submitButton = modal.querySelector(".modal__form-button"); //the modal submit button selecting
+
 const modalForm = modal.querySelector(".modal__form"); //the modal form selecting
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
@@ -42,7 +42,10 @@ const jobInput = modal.querySelector("#modal_form-job"); //the profile job input
 
 const addModal = document.querySelectorAll(".modal")[1]; // the add modal selection
 const addButton = document.querySelector(".profile__add-button"); // the selection of add button
-const closeAddModalButton = addModal.querySelector(".modal__close-button");
+const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
+const imgName = addModal.querySelector("#addModal_form-name");
+const imgUrl = addModal.querySelector("#addModal__form-url");
+const createImage = addModal.querySelector(".modal__form");
 
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
 
@@ -75,6 +78,18 @@ function getCardElement(data) {
   return cardElement;
 }
 
+function addCardElement(evt) {
+  evt.preventDefault();
+  const newCard = cardTemplate.cloneNode(true);
+  const newCardTitle = newCard.querySelector(".card__description-title");
+  const newCardImage = newCard.querySelector(".card__img");
+  newCardTitle.textContent = imgName.value;
+  newCardImage.alt = imgName.value;
+  newCardImage.src = imgUrl.value;
+  cardListEl.prepend(newCard);
+  closePopop();
+}
+
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
@@ -94,6 +109,8 @@ addButton.addEventListener("click", () => {
 });
 
 closeAddModalButton.addEventListener("click", closePopop);
+
+createImage.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
 initialCards.forEach((data) => {
