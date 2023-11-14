@@ -1,5 +1,11 @@
-.addModal {
-  display: flex;
+/*
+this CSS was created for the add modal but after trying to give the sasme classes to the add Modal
+element as the modal elements i found that for now its working good i leaving this css file fo the the situation i will need it in 
+the future 
+*/
+
+/* .addModal {
+  display: none;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -12,9 +18,9 @@
   align-items: center;
   justify-content: center;
 }
-/* .addModal_opened {
-  display: flex;s
-} */
+.addModal_opened {
+  display: flex;
+}
 .addModal__container {
   max-width: 430px;
   width: 100%;
@@ -123,4 +129,4 @@
   .addModal__form-button {
     font-size: 14px;
   }
-}
+} */

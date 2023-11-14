@@ -24,12 +24,13 @@ let initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+////////////////////////////////////////////// the modal elements selections //////////////////////////////////////////////
 
-const editButton = document.querySelector(".profile__edit-button");
-const modal = document.querySelector(".modal");
-const closeEditButton = modal.querySelector(".modal__close-button");
-const submitButton = modal.querySelector(".modal__form-button");
-const modalForm = modal.querySelector(".modal__form");
+const editButton = document.querySelector(".profile__edit-button"); //the profile edit button select
+const modal = document.querySelector(".modal"); //the modal selecting
+const closeEditButton = modal.querySelector(".modal__close-button"); //the modal close button selecting
+const submitButton = modal.querySelector(".modal__form-button"); //the modal submit button selecting
+const modalForm = modal.querySelector(".modal__form"); //the modal form selecting
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
 const nameInput = modal.querySelector("#modal_form-name"); //the profile name input in modal
@@ -37,13 +38,24 @@ const nameInput = modal.querySelector("#modal_form-name"); //the profile name in
 const profileJob = document.querySelector(".profile__descripton"); //the profile job from the page
 const jobInput = modal.querySelector("#modal_form-job"); //the profile job input form modal
 
+/////////////////////////////////////// the Add modal elements selections ////////////////////////////////////////////////////////
+
+const addModal = document.querySelectorAll(".modal")[1]; // the add modal selection
+const addButton = document.querySelector(".profile__add-button"); // the selection of add button
+const closeAddModalButton = addModal.querySelector(".modal__close-button");
+
+/////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
+
 const cardListEl = document.querySelector(".cards");
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
+////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
+
 function closePopop() {
   modal.classList.remove("modal_opened");
+  addModal.classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
@@ -63,6 +75,9 @@ function getCardElement(data) {
   return cardElement;
 }
 
+///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
+
+//////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
   modal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
@@ -71,9 +86,17 @@ editButton.addEventListener("click", function () {
 
 closeEditButton.addEventListener("click", closePopop);
 
+modalForm.addEventListener("submit", handleProfileFormSubmit);
+
+/////////// add modal events /////////////////////////
+addButton.addEventListener("click", () => {
+  addModal.classList.add("modal_opened");
+});
+
+closeAddModalButton.addEventListener("click", closePopop);
+
+//////////////////// cards events //////////////////////
 initialCards.forEach((data) => {
   const cardElement = getCardElement(data);
   cardListEl.append(cardElement);
 });
-
-modalForm.addEventListener("submit", handleProfileFormSubmit);
