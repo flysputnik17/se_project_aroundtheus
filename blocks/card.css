@@ -8,6 +8,7 @@
   border-radius: 10px;
   border: none;
   overflow: hidden;
+  position: relative;
 }
 
 .card__img {
@@ -48,4 +49,21 @@
 .card__description-button:hover {
   opacity: 0.6;
   animation: Pulse 1.4s ease-in-out 0s infinite;
+}
+
+.card__delete-button {
+  background: url(../images/Trash.svg);
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.6s ease-out;
+  min-width: 18px;
+  height: 19.3px;
+  position: absolute;
+  right: 16.25px;
+  top: 23.79px;
+}
+
+.card__delete-button:hover {
+  opacity: 0.6;
 }

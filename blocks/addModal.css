@@ -1,0 +1,126 @@
+.addModal {
+  display: flex;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 0 19px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  align-items: center;
+  justify-content: center;
+}
+/* .addModal_opened {
+  display: flex;s
+} */
+.addModal__container {
+  max-width: 430px;
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  color: black;
+  max-height: 330px;
+}
+
+.addModal__close-button {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/Close\ Icon.svg);
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.addModal__heading {
+  margin: 0;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.25;
+  padding: 34px 64px 54px 36px;
+  max-width: 330px;
+}
+
+.addModal__form {
+  padding: 0 36px 48px 36px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.addModal__form-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.addModal__form-input {
+  padding-bottom: 13px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.addModal__form-button {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.1;
+  border: 2px solid rgb(0, 0, 0);
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.addModal__form-button:hover {
+  opacity: 0.8;
+}
+
+.addModal__close-button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 570px) and (min-width: 431px) {
+  .addModal__close-button {
+    bottom: calc(100% + 5px);
+    left: calc(90% + 5px);
+  }
+}
+
+@media screen and (max-width: 430px) and (min-width: 320px) {
+  .addModal {
+    padding: 0;
+  }
+  .addModal__container {
+    max-width: 282px;
+  }
+  .addModal__close-button {
+    width: 26px;
+    height: 26px;
+    bottom: calc(100% + 15px);
+    left: calc(90% + 5px);
+  }
+  .addModal__heading {
+    font-size: 18px;
+    line-height: 1.16;
+    padding: 25px 22px 75px 22px;
+  }
+  .addModal__form {
+    padding: 0 22px 25px 22px;
+  }
+  .addModal__form-button {
+    font-size: 14px;
+  }
+}
