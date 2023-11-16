@@ -1,0 +1,44 @@
+.img-modal {
+  display: flex;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .img-modal-opend {
+  display: flex;
+} */
+
+.img-modal__container {
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+.img-modal__close-button {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/Close\ Icon.svg);
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.img-modal__card-img {
+  max-height: 540px;
+}
+.img-modal-title {
+  margin: 10px 0 0;
+  padding: 0;
+}

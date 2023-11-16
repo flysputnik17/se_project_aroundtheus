@@ -46,6 +46,9 @@
   cursor: pointer;
   transition: opacity 0.6s ease-out;
 }
+.card__description-button_liked {
+  background-image: url(../images/hear-icon-active.svg);
+}
 .card__description-button:hover {
   opacity: 0.6;
   animation: Pulse 1.4s ease-in-out 0s infinite;

@@ -56,25 +56,39 @@ const cardTemplate =
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
-function closePopop() {
-  modal.classList.remove("modal_opened");
-  addModal.classList.remove("modal_opened");
+function modalStatus(modal) {
+  modal.classList.toggle("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); //preventin the refresh of the page
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopop();
+  modalStatus(modal);
 }
 
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitleEl = cardElement.querySelector(".card__description-title");
   const cardImageEl = cardElement.querySelector(".card__img");
+  const likeButton = cardElement.querySelector(".card__description-button"); //finding the like button inside each card element so even when new card will be created it will work
+  const deleteButton = cardElement.querySelector(".card__delete-button"); //finding the delete button inside each card element so even when new card will be created it will work
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__description-button_liked");
+  });
+
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
   cardTitleEl.textContent = data.name;
   cardImageEl.alt = data.name;
   cardImageEl.src = data.link;
+
+  cardImageEl.addEventListener("click", () => {
+    modalStatus();
+  });
   return cardElement; //this fucntion will return a new card that has name alt and a link
 }
 
@@ -84,28 +98,32 @@ function addCardElement(evt) {
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
   const newCard = getCardElement({ name, link }); //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
   cardListEl.prepend(newCard);
-  closePopop();
+  modalStatus(addModal);
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
-  modal.classList.add("modal_opened");
+  modalStatus(modal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 });
 
-closeEditButton.addEventListener("click", closePopop);
+closeEditButton.addEventListener("click", () => {
+  modalStatus(modal);
+});
 
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
-  addModal.classList.add("modal_opened");
+  modalStatus(addModal);
 });
 
-closeAddModalButton.addEventListener("click", closePopop);
+closeAddModalButton.addEventListener("click", () => {
+  modalStatus(addModal);
+});
 
 createImage.addEventListener("submit", addCardElement);
 
