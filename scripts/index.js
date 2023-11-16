@@ -75,17 +75,14 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
   cardImageEl.alt = data.name;
   cardImageEl.src = data.link;
-  return cardElement;
+  return cardElement; //this fucntion will return a new card that has name alt and a link
 }
 
 function addCardElement(evt) {
   evt.preventDefault();
-  const newCard = cardTemplate.cloneNode(true);
-  const newCardTitle = newCard.querySelector(".card__description-title");
-  const newCardImage = newCard.querySelector(".card__img");
-  newCardTitle.textContent = imgName.value;
-  newCardImage.alt = imgName.value;
-  newCardImage.src = imgUrl.value;
+  const name = imgName.value; //name now will recive the value of the input that the user puts in the form
+  const link = imgUrl.value; //link now will recive the value of the url that the user inputs
+  const newCard = getCardElement({ name, link }); //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
   cardListEl.prepend(newCard);
   closePopop();
 }

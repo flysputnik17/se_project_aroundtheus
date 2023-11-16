@@ -19,8 +19,8 @@
   padding-top: 51px;
   display: grid;
   justify-content: center;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 50% 50%;
+  grid-template-columns: repeat(auto-fill, max(282px));
+  grid-template-rows: repeat(auto-fill, max(361px));
   grid-column-gap: 17px;
   grid-row-gap: 20px;
   list-style: none;
