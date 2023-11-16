@@ -54,6 +54,11 @@ const cardListEl = document.querySelector(".cards");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
+const imgModal = document.querySelector(".img-modal");
+const imgCloseButton = imgModal.querySelector(".img-modal__close-button");
+const imgSrc = imgModal.querySelector(".img-modal__card-img");
+const imgTitle = imgModal.querySelector(".img-modal-title");
+
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
 function modalStatus(modal) {
@@ -87,8 +92,13 @@ function getCardElement(data) {
   cardImageEl.src = data.link;
 
   cardImageEl.addEventListener("click", () => {
-    modalStatus();
+    imgModal.classList.toggle("img-modal__opend");
+
+    imgSrc.src = cardImageEl.src;
+    imgSrc.alt = cardTitleEl.textContent;
+    imgTitle.textContent = cardTitleEl.textContent;
   });
+
   return cardElement; //this fucntion will return a new card that has name alt and a link
 }
 
@@ -107,22 +117,22 @@ function addCardElement(evt) {
 editButton.addEventListener("click", function () {
   modalStatus(modal);
   nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  jobInput.value = profileJob.textContent; //open profile modal event
 });
 
 closeEditButton.addEventListener("click", () => {
-  modalStatus(modal);
+  modalStatus(modal); //close profile modal event
 });
 
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
-  modalStatus(addModal);
+  modalStatus(addModal); //open add button event
 });
 
 closeAddModalButton.addEventListener("click", () => {
-  modalStatus(addModal);
+  modalStatus(addModal); //close add button event
 });
 
 createImage.addEventListener("submit", addCardElement);
@@ -131,4 +141,8 @@ createImage.addEventListener("submit", addCardElement);
 initialCards.forEach((data) => {
   const cardElement = getCardElement(data);
   cardListEl.append(cardElement);
+}); //rendering the cards
+
+imgCloseButton.addEventListener("click", () => {
+  imgModal.classList.remove("img-modal__opend"); //close img modal event
 });
