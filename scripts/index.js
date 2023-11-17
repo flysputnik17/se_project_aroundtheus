@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -27,25 +27,25 @@ let initialCards = [
 ////////////////////////////////////////////// the modal elements selections //////////////////////////////////////////////
 
 const editButton = document.querySelector(".profile__edit-button"); //the profile edit button select
-const modal = document.querySelector(".modal"); //the modal selecting
-const closeEditButton = modal.querySelector(".modal__close-button"); //the modal close button selecting
+const profileModal = document.querySelector(".profile-modal"); //the modal selecting
+const closeEditButton = profileModal.querySelector(".modal__close-button"); //the modal close button selecting
 
-const modalForm = modal.querySelector(".modal__form"); //the modal form selecting
+const profileForm = profileModal.querySelector(".modal__form"); //the modal form selecting
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
-const nameInput = modal.querySelector("#modal_form-name"); //the profile name input in modal
+const nameInput = profileModal.querySelector("#modal_form-name"); //the profile name input in modal
 
 const profileJob = document.querySelector(".profile__descripton"); //the profile job from the page
-const jobInput = modal.querySelector("#modal_form-job"); //the profile job input form modal
+const jobInput = profileModal.querySelector("#modal_form-job"); //the profile job input form modal
 
 /////////////////////////////////////// the Add modal elements selections ////////////////////////////////////////////////////////
 
-const addModal = document.querySelectorAll(".modal")[1]; // the add modal selection
+const addModal = document.querySelector(".card-modal"); // the add modal selection
 const addButton = document.querySelector(".profile__add-button"); // the selection of add button
 const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
 const imgName = addModal.querySelector("#addModal_form-name");
 const imgUrl = addModal.querySelector("#addModal__form-url");
-const createImage = addModal.querySelector(".modal__form");
+const cardForm = addModal.querySelector(".modal__form");
 
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
 
@@ -54,22 +54,26 @@ const cardListEl = document.querySelector(".cards");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
-const imgModal = document.querySelectorAll(".modal")[2];
+const imgModal = document.querySelector(".image-modal");
 const imgCloseButton = imgModal.querySelector(".modal__img-close-button");
 const imgSrc = imgModal.querySelector(".modal__img-card-img");
 const imgTitle = imgModal.querySelector(".modal__img-title");
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
-function modalStatus(modal) {
-  modal.classList.toggle("modal_opened");
+function openPopup(popup) {
+  popup.classList.add("modal_opened");
+}
+
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); //preventin the refresh of the page
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  modalStatus(modal);
+  closePopup(profileModal);
 }
 
 function getCardElement(data) {
@@ -92,7 +96,7 @@ function getCardElement(data) {
   cardImageEl.src = data.link;
 
   cardImageEl.addEventListener("click", () => {
-    modalStatus(imgModal);
+    openPopup(imgModal);
 
     imgSrc.src = cardImageEl.src;
     imgSrc.alt = cardTitleEl.textContent;
@@ -107,35 +111,36 @@ function addCardElement(evt) {
   const name = imgName.value; //name now will recive the value of the input that the user puts in the form
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
   const newCard = getCardElement({ name, link }); //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
+  evt.target.reset(); //reseting the inputs after user submit a form
   cardListEl.prepend(newCard);
-  modalStatus(addModal);
+  closePopup(addModal);
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
-  modalStatus(modal);
+  openPopup(profileModal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent; //open profile modal event
 });
 
 closeEditButton.addEventListener("click", () => {
-  modalStatus(modal); //close profile modal event
+  closePopup(profileModal); //close profile modal event
 });
 
-modalForm.addEventListener("submit", handleProfileFormSubmit);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
-  modalStatus(addModal); //open add button event
+  openPopup(addModal); //open add button event
 });
 
 closeAddModalButton.addEventListener("click", () => {
-  modalStatus(addModal); //close add button event
+  closePopup(addModal); //close add button event
 });
 
-createImage.addEventListener("submit", addCardElement);
+cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
 initialCards.forEach((data) => {
@@ -144,5 +149,5 @@ initialCards.forEach((data) => {
 }); //rendering the cards
 
 imgCloseButton.addEventListener("click", () => {
-  modalStatus(imgModal); //close img modal event
+  closePopup(imgModal); //close img modal event
 });
