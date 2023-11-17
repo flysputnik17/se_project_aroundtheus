@@ -55,9 +55,9 @@ const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 const imgModal = document.querySelectorAll(".modal")[2];
-const imgCloseButton = imgModal.querySelector(".img-container__close-button");
-const imgSrc = imgModal.querySelector(".img-container__card-img");
-const imgTitle = imgModal.querySelector(".img-container__modal-title");
+const imgCloseButton = imgModal.querySelector(".modal__img-close-button");
+const imgSrc = imgModal.querySelector(".modal__img-card-img");
+const imgTitle = imgModal.querySelector(".modal__img-title");
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
