@@ -1,5 +1,5 @@
 .modal {
-  display: none;
+  display: flex;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
@@ -11,10 +11,16 @@
   font-family: "Inter", Arial, Helvetica, sans-serif;
   align-items: center;
   justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 .modal__container {
   max-width: 430px;
