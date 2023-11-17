@@ -54,7 +54,7 @@ const cardListEl = document.querySelector(".cards");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
-const imgModal = document.querySelector(".img-modal");
+const imgModal = document.querySelectorAll(".modal")[2];
 const imgCloseButton = imgModal.querySelector(".img-modal__close-button");
 const imgSrc = imgModal.querySelector(".img-modal__card-img");
 const imgTitle = imgModal.querySelector(".img-modal-title");
@@ -92,7 +92,7 @@ function getCardElement(data) {
   cardImageEl.src = data.link;
 
   cardImageEl.addEventListener("click", () => {
-    imgModal.classList.toggle("img-modal__opend");
+    modalStatus(imgModal);
 
     imgSrc.src = cardImageEl.src;
     imgSrc.alt = cardTitleEl.textContent;
@@ -144,5 +144,5 @@ initialCards.forEach((data) => {
 }); //rendering the cards
 
 imgCloseButton.addEventListener("click", () => {
-  imgModal.classList.remove("img-modal__opend"); //close img modal event
+  modalStatus(imgModal); //close img modal event
 });
