@@ -35,25 +35,34 @@
       <div class="modal__container">
         <button type="button" class="modal__close-button"></button>
         <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form">
+        <form class="modal__form" novalidate>
           <fieldset class="modal__form-fieldset">
-            <input
-              id="modal_form-name"
-              class="modal__form-input"
-              type="text"
-              name="profile__name"
-              placeholder="name"
-              required
-            />
-
-            <input
-              id="modal_form-job"
-              class="modal__form-input"
-              type="text"
-              name="profile__descripton"
-              placeholder="descripton"
-              required
-            />
+            <div class="fieldset-continer">
+              <input
+                id="modal_form-name"
+                class="modal__form-input"
+                type="text"
+                name="profile__name"
+                placeholder="name"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="form__input-error modal_form-name-error"></span>
+            </div>
+            <div class="fieldset-continer">
+              <input
+                id="modal_form-job"
+                class="modal__form-input"
+                type="text"
+                name="profile__descripton"
+                placeholder="descripton"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="form__input-error modal_form-job-error"></span>
+            </div>
           </fieldset>
           <button type="submit" class="modal__form-button">Save</button>
         </form>
@@ -63,7 +72,7 @@
       <div class="modal__container">
         <button class="modal__close-button"></button>
         <h2 class="modal__heading">New place</h2>
-        <form class="modal__form">
+        <form class="modal__form" novalidate>
           <fieldset class="modal__form-fieldset">
             <input
               id="addModal_form-name"
@@ -71,12 +80,14 @@
               type="text"
               name="img__title"
               placeholder="Title"
+              minlength="2"
+              maxlength="30"
               required
             />
             <input
               id="addModal__form-url"
               class="modal__form-input"
-              type="text"
+              type="url"
               name="img__url"
               placeholder="Image link"
               required

@@ -67,12 +67,43 @@
   padding-bottom: 48px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 35px;
+}
+
+.fieldset-continer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 .modal__form-input {
   padding-bottom: 13px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal__form-input-error {
+  border-bottom: 1px solid red;
+}
+
+.form__input-error {
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+
+.form__input-error-active {
+  visibility: visible;
+  margin: 0;
+  padding: 0;
+  color: #ff0000;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.1;
+  position: absolute;
+  top: 35px;
 }
 
 .modal__form-button {
