@@ -31,7 +31,7 @@ const editButton = document.querySelector(".profile__edit-button"); //the profil
 const profileModal = document.querySelector(".profile-modal"); //the modal selecting
 const closeEditButton = profileModal.querySelector(".modal__close-button"); //the modal close button selecting
 
-const profileForm = profileModal.querySelector(".modal__form"); //the modal form selecting
+const profileForm = document.forms["profile-form"]; //the modal form selecting
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
 const nameInput = profileModal.querySelector("#modal__form-name"); //the profile name input in modal
@@ -46,7 +46,7 @@ const addButton = document.querySelector(".profile__add-button"); // the selecti
 const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
 const imgName = addModal.querySelector("#modal__form-title");
 const imgUrl = addModal.querySelector("#modal__form-url");
-const cardForm = addModal.querySelector(".modal__form");
+const cardForm = document.forms["card-form"];
 
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
 
@@ -62,12 +62,28 @@ const imgTitle = imgModal.querySelector(".modal__img-title");
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
+///the if checking if the modal is opened and if there is a class modal_opened if the statement is true the function will add the classs and will activate the event on the document
 function openPopup(popup) {
-  popup.classList.add("modal_opened");
+  if (popup && !popup.classList.contains("modal_opened")) {
+    popup.classList.add("modal_opened");
+    document.addEventListener("keydown", closeByEscape);
+  }
+}
+///this is the same function but here the class will be removed and the event will stop listen on the document
+function closePopup(popup) {
+  if (popup && popup.classList.contains("modal_opened")) {
+    popup.classList.remove("modal_opened");
+    document.removeEventListener("keydown", closeByEscape);
+  }
 }
 
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".modal_opened");
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
+  }
 }
 
 function handleProfileFormSubmit(evt) {
@@ -158,13 +174,5 @@ document.addEventListener("click", (evt) => {
   if (!profileForm.contains(evt.target) && evt.target !== closeEditButton) {
     // Close the modal or perform any other action
     closePopup(evt.target);
-  }
-});
-
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(profileModal);
-    closePopup(imgModal);
-    closePopup(addModal);
   }
 });
