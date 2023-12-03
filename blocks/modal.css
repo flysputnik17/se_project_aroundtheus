@@ -86,14 +86,14 @@
   border-bottom: 1px solid red;
 }
 
-.form__input-error {
+.modal__form-error {
   visibility: hidden;
   margin: 0;
   padding: 0;
   position: absolute;
 }
 
-.form__input-error-active {
+.modal__form-error-active {
   visibility: visible;
   margin: 0;
   padding: 0;

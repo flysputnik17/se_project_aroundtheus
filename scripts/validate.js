@@ -4,13 +4,13 @@ function showInputError(formElement, formInput, errorMessage) {
   const errorElement = formElement.querySelector(`.${formInput.id}-error`); //creating an variable that will be representing the span of the error message by its input id in the current form
   formInput.classList.add("modal__form-input-error"); //adding the class with the error style to the input field
   errorElement.textContent = errorMessage; //inside the span i storing the generic error text message
-  errorElement.classList.add("form__input-error-active"); //and adding the style to the custome error message
+  errorElement.classList.add("modal__form-error-active"); //and adding the style to the custome error message
 }
 
 function hideInputError(formElement, formInput) {
   const errorElement = formElement.querySelector(`.${formInput.id}-error`); //this function is the same as showInputError but here im removing all the style classes
   formInput.classList.remove("modal__form-input-error");
-  errorElement.classList.remove("form__input-error-active");
+  errorElement.classList.remove("modal__form-error-active");
   errorElement.textContent = "";
 }
 

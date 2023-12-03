@@ -34,17 +34,17 @@ const closeEditButton = profileModal.querySelector(".modal__close-button"); //th
 const profileForm = profileModal.querySelector(".modal__form"); //the modal form selecting
 
 const profileName = document.querySelector(".profile__name"); //the profile name from the page
-const nameInput = profileModal.querySelector("#modal_form-name"); //the profile name input in modal
+const nameInput = profileModal.querySelector("#modal__form-name"); //the profile name input in modal
 
 const profileJob = document.querySelector(".profile__descripton"); //the profile job from the page
-const jobInput = profileModal.querySelector("#modal_form-job"); //the profile job input form modal
+const jobInput = profileModal.querySelector("#modal__form-job"); //the profile job input form modal
 
 /////////////////////////////////////// the Add modal elements selections ////////////////////////////////////////////////////////
 
 const addModal = document.querySelector(".card-modal"); // the add modal selection
 const addButton = document.querySelector(".profile__add-button"); // the selection of add button
 const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
-const imgName = addModal.querySelector("#addModal_form-name");
+const imgName = addModal.querySelector("#addModal__form-name");
 const imgUrl = addModal.querySelector("#addModal__form-url");
 const cardForm = addModal.querySelector(".modal__form");
 
