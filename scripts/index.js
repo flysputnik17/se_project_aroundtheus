@@ -152,3 +152,11 @@ initialCards.forEach((data) => {
 imgCloseButton.addEventListener("click", () => {
   closePopup(imgModal); //close img modal event
 });
+
+document.addEventListener("click", (evt) => {
+  // Check if the click is outside the modal and not on the close button
+  if (!profileForm.contains(evt.target) && evt.target !== editButton) {
+    // Close the modal or perform any other action
+    closePopup(evt.target);
+  }
+});
