@@ -44,8 +44,8 @@ const jobInput = profileModal.querySelector("#modal__form-job"); //the profile j
 const addModal = document.querySelector(".card-modal"); // the add modal selection
 const addButton = document.querySelector(".profile__add-button"); // the selection of add button
 const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
-const imgName = addModal.querySelector("#addModal__form-name");
-const imgUrl = addModal.querySelector("#addModal__form-url");
+const imgName = addModal.querySelector("#modal__form-title");
+const imgUrl = addModal.querySelector("#modal__form-url");
 const cardForm = addModal.querySelector(".modal__form");
 
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
