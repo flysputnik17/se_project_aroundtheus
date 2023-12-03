@@ -126,6 +126,14 @@
 .modal__close-button:hover {
   opacity: 0.6;
 }
+
+.modal__form-button-inactive {
+  background-color: #ffff;
+  color: #000;
+  cursor: default;
+  opacity: 0.2;
+}
+
 @media (max-width: 570px) and (min-width: 431px) {
   .modal__close-button {
     bottom: calc(100% + 5px);

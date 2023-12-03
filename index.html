@@ -74,24 +74,30 @@
         <h2 class="modal__heading">New place</h2>
         <form class="modal__form" novalidate>
           <fieldset class="modal__form-fieldset">
-            <input
-              id="addModal_form-name"
-              class="modal__form-input"
-              type="text"
-              name="img__title"
-              placeholder="Title"
-              minlength="2"
-              maxlength="30"
-              required
-            />
-            <input
-              id="addModal__form-url"
-              class="modal__form-input"
-              type="url"
-              name="img__url"
-              placeholder="Image link"
-              required
-            />
+            <div class="fieldset-continer">
+              <input
+                id="addModal_form-name"
+                class="modal__form-input"
+                type="text"
+                name="img__title"
+                placeholder="Title"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span class="form__input-error addModal_form-name-error"></span>
+            </div>
+            <div class="fieldset-continer">
+              <input
+                id="addModal__form-url"
+                class="modal__form-input"
+                type="url"
+                name="img__url"
+                placeholder="Image link"
+                required
+              />
+              <span class="form__input-error addModal__form-url-error"></span>
+            </div>
           </fieldset>
           <button class="modal__form-button" type="submit">Create</button>
         </form>
@@ -116,5 +122,6 @@
       </li>
     </template>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
