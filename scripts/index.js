@@ -155,8 +155,16 @@ imgCloseButton.addEventListener("click", () => {
 
 document.addEventListener("click", (evt) => {
   // Check if the click is outside the modal and not on the close button
-  if (!profileForm.contains(evt.target) && evt.target !== editButton) {
+  if (!profileForm.contains(evt.target) && evt.target !== closeEditButton) {
     // Close the modal or perform any other action
     closePopup(evt.target);
+  }
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopup(profileModal);
+    closePopup(imgModal);
+    closePopup(addModal);
   }
 });
