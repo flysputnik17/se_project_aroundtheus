@@ -29,7 +29,6 @@ const initialCards = [
 
 const editButton = document.querySelector(".profile__edit-button"); //the profile edit button select
 const profileModal = document.querySelector(".profile-modal"); //the modal selecting
-const closeEditButton = profileModal.querySelector(".modal__close-button"); //the modal close button selecting
 
 const profileForm = document.forms["profile-form"]; //the modal form selecting
 
@@ -43,7 +42,6 @@ const jobInput = profileModal.querySelector("#modal__form-job"); //the profile j
 
 const addModal = document.querySelector(".card-modal"); // the add modal selection
 const addButton = document.querySelector(".profile__add-button"); // the selection of add button
-const closeAddModalButton = addModal.querySelector(".modal__close-button"); //the close button
 const imgName = addModal.querySelector("#modal__form-title");
 const imgUrl = addModal.querySelector("#modal__form-url");
 const cardForm = document.forms["card-form"];
@@ -60,7 +58,6 @@ const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 const imgModal = document.querySelector(".image-modal");
-const imgCloseButton = imgModal.querySelector(".modal__img-close-button");
 const imgSrc = imgModal.querySelector(".modal__img-card-img");
 const imgTitle = imgModal.querySelector(".modal__img-title");
 
@@ -146,13 +143,12 @@ editButton.addEventListener("click", function () {
   jobInput.value = profileJob.textContent; //open profile modal event
 });
 
-closeEditButton.addEventListener("click", () => {
-  closePopup(profileModal); //close profile modal event
-});
-
 modalPopup.forEach((modal) => {
   modal.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("modal_opened")) {
+      closePopup(modal);
+    }
+    if (evt.target.classList.contains("modal__close-button")) {
       closePopup(modal);
     }
   });
@@ -165,10 +161,6 @@ addButton.addEventListener("click", () => {
   openPopup(addModal); //open add button event
 });
 
-closeAddModalButton.addEventListener("click", () => {
-  closePopup(addModal); //close add button event
-});
-
 cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
@@ -176,7 +168,3 @@ initialCards.forEach((data) => {
   const cardElement = getCardElement(data);
   cardListEl.append(cardElement);
 }); //rendering the cards
-
-imgCloseButton.addEventListener("click", () => {
-  closePopup(imgModal); //close img modal event
-});
