@@ -48,6 +48,10 @@ const imgName = addModal.querySelector("#modal__form-title");
 const imgUrl = addModal.querySelector("#modal__form-url");
 const cardForm = document.forms["card-form"];
 
+const openedPopup = document.querySelector(".modal_opened");
+const closeModalButton = document.querySelectorAll(".modal__close-button");
+const modalPopup = document.querySelectorAll(".modal");
+
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
 
 const cardListEl = document.querySelector(".cards");
@@ -146,6 +150,14 @@ closeEditButton.addEventListener("click", () => {
   closePopup(profileModal); //close profile modal event
 });
 
+modalPopup.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal_opened")) {
+      closePopup(modal);
+    }
+  });
+});
+
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 /////////// add modal events /////////////////////////
@@ -167,12 +179,4 @@ initialCards.forEach((data) => {
 
 imgCloseButton.addEventListener("click", () => {
   closePopup(imgModal); //close img modal event
-});
-
-document.addEventListener("click", (evt) => {
-  // Check if the click is outside the modal and not on the close button
-  if (!profileForm.contains(evt.target) && evt.target !== closeEditButton) {
-    // Close the modal or perform any other action
-    closePopup(evt.target);
-  }
 });
