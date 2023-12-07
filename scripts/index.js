@@ -46,9 +46,7 @@ const imgName = addModal.querySelector("#modal__form-title");
 const imgUrl = addModal.querySelector("#modal__form-url");
 const cardForm = document.forms["card-form"];
 
-const openedPopup = document.querySelector(".modal_opened");
-const closeModalButton = document.querySelectorAll(".modal__close-button");
-const modalPopup = document.querySelectorAll(".modal");
+const modals = document.querySelectorAll(".modal");
 
 /////////////////////////////////////////////////////// the card list selection ///////////////////////////////////////////
 
@@ -143,7 +141,7 @@ editButton.addEventListener("click", function () {
   jobInput.value = profileJob.textContent; //open profile modal event
 });
 
-modalPopup.forEach((modal) => {
+modals.forEach((modal) => {
   modal.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("modal_opened")) {
       closePopup(modal);
