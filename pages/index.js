@@ -28,6 +28,7 @@ const initialCards = [
 ////////////////////////////////////////////// the modal elements selections //////////////////////////////////////////////
 
 const editButton = document.querySelector(".profile__edit-button"); //the profile edit button select
+const addButton = document.querySelector(".profile__add-button"); // the selection of add button
 const profileModal = document.querySelector(".profile-modal"); //the modal selecting
 
 const profileForm = document.forms["profile-form"]; //the modal form selecting
@@ -41,10 +42,11 @@ const jobInput = profileModal.querySelector("#modal__form-job"); //the profile j
 /////////////////////////////////////// the Add modal elements selections ////////////////////////////////////////////////////////
 
 const addModal = document.querySelector(".card-modal"); // the add modal selection
-const addButton = document.querySelector(".profile__add-button"); // the selection of add button
-const imgName = addModal.querySelector("#modal__form-title");
-const imgUrl = addModal.querySelector("#modal__form-url");
+const imgName = addModal.querySelector("#modal__form-title"); //img modal selection
+const imgUrl = addModal.querySelector("#modal__form-url"); //img url element selection
 const cardForm = document.forms["card-form"];
+
+///////////////////////////////////////the modals element selections///////////////////////////////////////////////////////////
 
 const modals = document.querySelectorAll(".modal");
 
@@ -93,19 +95,19 @@ function handleProfileFormSubmit(evt) {
 }
 
 function getCardElement(data) {
-  const cardElement = cardTemplate.cloneNode(true);
+  // const cardElement = cardTemplate.cloneNode(true);
   const cardTitleEl = cardElement.querySelector(".card__description-title");
   const cardImageEl = cardElement.querySelector(".card__img");
-  const likeButton = cardElement.querySelector(".card__description-button"); //finding the like button inside each card element so even when new card will be created it will work
-  const deleteButton = cardElement.querySelector(".card__delete-button"); //finding the delete button inside each card element so even when new card will be created it will work
+  //const likeButton = cardElement.querySelector(".card__description-button"); //finding the like button inside each card element so even when new card will be created it will work
+  //const deleteButton = cardElement.querySelector(".card__delete-button"); //finding the delete button inside each card element so even when new card will be created it will work
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__description-button_liked");
-  });
+  // likeButton.addEventListener("click", () => {
+  //   likeButton.classList.toggle("card__description-button_liked");
+  // });
 
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  // deleteButton.addEventListener("click", () => {
+  //   cardElement.remove();
+  // });
 
   cardTitleEl.textContent = data.name;
   cardImageEl.alt = data.name;
