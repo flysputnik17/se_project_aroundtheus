@@ -17,6 +17,7 @@ export class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
+        console.log("click");
         this._handleDeleteButton();
       });
   }
@@ -32,19 +33,32 @@ export class Card {
     this._cardElement = null;
   }
 
-  getView() {
-    this._cardElement = document
+  //function to cloneing the card templete
+  _getElement() {
+    return document
       .querySelector(this._cardSelector)
-      .content.cloneNode(true);
+      .content.querySelector(".card")
+      .cloneNode(true);
+  }
 
-    const cardTitleEl = this._cardElement.querySelector(
+  getView() {
+    this._cardElement = this._getElement(); //calling this function to clone the card and save it on the cardElement
+    this._cardTitleEl = this._cardElement.querySelector(
       ".card__description-title"
     );
-    const cardImageEl = this._cardElement.querySelector(".card__img");
+    this._cardImageEl = this._cardElement.querySelector(".card__img");
+    this._likeButton = this._cardElement.querySelector(
+      ".card__description-button"
+    );
+    this._deleteButton = this._cardElement.querySelector(
+      ".card__delete-button"
+    );
 
-    cardTitleEl.textContent = this._title;
-    cardImageEl.src = this._link;
-    cardImageEl.alt = this._title;
+    this._cardTitleEl.textContent = this._title; //puting the title to the text content of the card that i resiving
+    this._cardImageEl.src = this._link; //puting the link to src of the card to render the img
+    this._cardImageEl.alt = this._title; //coping the title to put it as an alt of the img
+
+    this._setEventListeners();
 
     return this._cardElement;
   }
