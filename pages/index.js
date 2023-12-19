@@ -115,13 +115,13 @@ function handleProfileFormSubmit(evt) {
 //   // cardImageEl.alt = data.name;
 //   // cardImageEl.src = data.link;
 
-//   cardImageEl.addEventListener("click", () => {
-//     openPopup(imgModal);
+// cardImageEl.addEventListener("click", () => {
+//   openPopup(imgModal);
 
-//     imgSrc.src = cardImageEl.src;
-//     imgSrc.alt = cardTitleEl.textContent;
-//     imgTitle.textContent = cardTitleEl.textContent;
-//   });
+//   imgSrc.src = cardImageEl.src;
+//   imgSrc.alt = cardTitleEl.textContent;
+//   imgTitle.textContent = cardTitleEl.textContent;
+// });
 
 //   return cardElement; //this fucntion will return a new card that has name alt and a link
 // }

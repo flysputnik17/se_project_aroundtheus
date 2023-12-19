@@ -7,30 +7,27 @@ export class Card {
   }
   handleImageClick() {}
 
-  _setEventListeners() {
-    this._cardElement
-      .querySelector(".card__description-button")
-      .addEventListener("click", () => {
-        this._handleLikeButton();
-      });
-
-    this._cardElement
-      .querySelector(".card__delete-button")
-      .addEventListener("click", () => {
-        console.log("click");
-        this._handleDeleteButton();
-      });
-  }
-
   _handleLikeButton() {
-    this._cardElement
-      .querySelector(".card__description-button")
-      .classList.toggle("card__description-button_liked");
+    this._likeButton.classList.toggle("card__description-button_liked");
   }
 
   _handleDeleteButton() {
     this._cardElement.remove();
     this._cardElement = null;
+  }
+
+  _setEventListeners() {
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeButton();
+    });
+
+    this._deleteButton.addEventListener("click", () => {
+      this._handleDeleteButton();
+    });
+
+    this._cardElement.addEventListener("click", () => {
+      this._handleImageClick(this);
+    });
   }
 
   //function to cloneing the card templete
