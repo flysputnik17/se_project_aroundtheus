@@ -56,8 +56,8 @@ const modals = document.querySelectorAll(".modal");
 
 const cardListEl = document.querySelector(".cards");
 
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
+// const cardTemplate =
+//   document.querySelector("#card-template").content.firstElementChild;
 
 const imgModal = document.querySelector(".image-modal");
 const imgSrc = imgModal.querySelector(".modal__img-card-img");
@@ -126,15 +126,16 @@ function handleProfileFormSubmit(evt) {
 //   return cardElement; //this fucntion will return a new card that has name alt and a link
 // }
 
-// function addCardElement(evt) {
-//   evt.preventDefault();
-//   const name = imgName.value; //name now will recive the value of the input that the user puts in the form
-//   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
-//   const newCard = Card.GET; //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
-//   evt.target.reset(); //reseting the inputs after user submit a form
-//   cardListEl.prepend(newCard);
-//   closePopup(addModal);
-// }
+function addCardElement(evt) {
+  evt.preventDefault();
+  const title = imgName.value; //name now will recive the value of the input that the user puts in the form
+  const link = imgUrl.value; //link now will recive the value of the url that the user inputs
+  const cardElem = new Card({ title, link }, "#card-template"); //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
+  const newCard = cardElem.getView();
+  evt.target.reset(); //reseting the inputs after user submit a form
+  cardListEl.prepend(newCard);
+  closePopup(addModal);
+}
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
@@ -163,9 +164,17 @@ addButton.addEventListener("click", () => {
   openPopup(addModal); //open add button event
 });
 
-// cardForm.addEventListener("submit", addCardElement);
+cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
+imgModal.addEventListener("click", () => {
+  openPopup(imgModal);
+
+  imgSrc.src = cardImageEl.src;
+  imgSrc.alt = cardTitleEl.textContent;
+  imgTitle.textContent = cardTitleEl.textContent;
+});
+
 initialCards.forEach((data) => {
   const cardData = {
     title: data.name,

@@ -5,7 +5,6 @@ export class Card {
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
-  handleImageClick() {}
 
   _handleLikeButton() {
     this._likeButton.classList.toggle("card__description-button_liked");
@@ -17,16 +16,16 @@ export class Card {
   }
 
   _setEventListeners() {
+    this._cardImageEl.addEventListener("click", () => {
+      this._handleImageClick(this);
+    });
+
     this._likeButton.addEventListener("click", () => {
       this._handleLikeButton();
     });
 
     this._deleteButton.addEventListener("click", () => {
       this._handleDeleteButton();
-    });
-
-    this._cardElement.addEventListener("click", () => {
-      this._handleImageClick(this);
     });
   }
 
@@ -38,6 +37,7 @@ export class Card {
       .cloneNode(true);
   }
 
+  ///////getView is a public function that returns a card element///////////////
   getView() {
     this._cardElement = this._getElement(); //calling this function to clone the card and save it on the cardElement
     this._cardTitleEl = this._cardElement.querySelector(
@@ -55,8 +55,8 @@ export class Card {
     this._cardImageEl.src = this._link; //puting the link to src of the card to render the img
     this._cardImageEl.alt = this._title; //coping the title to put it as an alt of the img
 
-    this._setEventListeners();
+    this._setEventListeners(); //calling the eventListeners
 
-    return this._cardElement;
+    return this._cardElement; ///returning the card element
   }
 }
