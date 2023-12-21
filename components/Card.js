@@ -1,7 +1,7 @@
 export class Card {
   constructor({ title, link }, cardSelector, handleImageClick) {
-    this._title = title;
-    this._link = link;
+    this.title = title;
+    this.link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
@@ -17,7 +17,7 @@ export class Card {
 
   _setEventListeners() {
     this._cardImageEl.addEventListener("click", () => {
-      this._handleImageClick(this);
+      this._handleImageClick(this); //event listener for the img thay will open upon click
     });
 
     this._likeButton.addEventListener("click", () => {
@@ -51,9 +51,9 @@ export class Card {
       ".card__delete-button"
     );
 
-    this._cardTitleEl.textContent = this._title; //puting the title to the text content of the card that i resiving
-    this._cardImageEl.src = this._link; //puting the link to src of the card to render the img
-    this._cardImageEl.alt = this._title; //coping the title to put it as an alt of the img
+    this._cardTitleEl.textContent = this.title; //puting the title to the text content of the card that i resiving
+    this._cardImageEl.src = this.link; //puting the link to src of the card to render the img
+    this._cardImageEl.alt = this.title; //coping the title to put it as an alt of the img
 
     this._setEventListeners(); //calling the eventListeners
 

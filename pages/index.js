@@ -56,9 +56,6 @@ const modals = document.querySelectorAll(".modal");
 
 const cardListEl = document.querySelector(".cards");
 
-// const cardTemplate =
-//   document.querySelector("#card-template").content.firstElementChild;
-
 const imgModal = document.querySelector(".image-modal");
 const imgSrc = imgModal.querySelector(".modal__img-card-img");
 const imgTitle = imgModal.querySelector(".modal__img-title");
@@ -96,41 +93,23 @@ function handleProfileFormSubmit(evt) {
   closePopup(profileModal);
 }
 
-// function getCardElement(data) {
-//   // const cardElement = cardTemplate.cloneNode(true);
-//   // const cardTitleEl = cardElement.querySelector(".card__description-title");
-//   // const cardImageEl = cardElement.querySelector(".card__img");
-//   //const likeButton = cardElement.querySelector(".card__description-button"); //finding the like button inside each card element so even when new card will be created it will work
-//   //const deleteButton = cardElement.querySelector(".card__delete-button"); //finding the delete button inside each card element so even when new card will be created it will work
-
-//   // likeButton.addEventListener("click", () => {
-//   //   likeButton.classList.toggle("card__description-button_liked");
-//   // });
-
-//   // deleteButton.addEventListener("click", () => {
-//   //   cardElement.remove();
-//   // });
-
-//   // cardTitleEl.textContent = data.name;
-//   // cardImageEl.alt = data.name;
-//   // cardImageEl.src = data.link;
-
-// cardImageEl.addEventListener("click", () => {
-//   openPopup(imgModal);
-
-//   imgSrc.src = cardImageEl.src;
-//   imgSrc.alt = cardTitleEl.textContent;
-//   imgTitle.textContent = cardTitleEl.textContent;
-// });
-
-//   return cardElement; //this fucntion will return a new card that has name alt and a link
-// }
+//function that opening the img popup
+function handleImageClick(card) {
+  imgTitle.textContent = card.title; //assining the card title to be the img title when the img popup is opening
+  imgSrc.src = card.link;
+  imgTitle.alt = card.title;
+  openPopup(imgModal);
+}
 
 function addCardElement(evt) {
   evt.preventDefault();
   const title = imgName.value; //name now will recive the value of the input that the user puts in the form
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
-  const cardElem = new Card({ title, link }, "#card-template"); //newCard will call for the getCardElement and create a new card the funciton gets object that contine the user name and kink for the new card
+  const cardElem = new Card(
+    { title, link },
+    "#card-template",
+    handleImageClick
+  ); //cardElem will be created from the Card class
   const newCard = cardElem.getView();
   evt.target.reset(); //reseting the inputs after user submit a form
   cardListEl.prepend(newCard);
@@ -167,20 +146,13 @@ addButton.addEventListener("click", () => {
 cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
-imgModal.addEventListener("click", () => {
-  openPopup(imgModal);
-
-  imgSrc.src = cardImageEl.src;
-  imgSrc.alt = cardTitleEl.textContent;
-  imgTitle.textContent = cardTitleEl.textContent;
-});
 
 initialCards.forEach((data) => {
   const cardData = {
     title: data.name,
     link: data.link,
   };
-  const cardElement = new Card(cardData, "#card-template");
+  const cardElement = new Card(cardData, "#card-template", handleImageClick);
   const newCard = cardElement.getView();
   cardListEl.append(newCard);
 }); //rendering the cards
