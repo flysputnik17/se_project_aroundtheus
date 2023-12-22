@@ -1,4 +1,5 @@
 import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -59,6 +60,17 @@ const cardListEl = document.querySelector(".cards");
 const imgModal = document.querySelector(".image-modal");
 const imgSrc = imgModal.querySelector(".modal__img-card-img");
 const imgTitle = imgModal.querySelector(".modal__img-title");
+
+/////////////////////////////////////////////////////////////validation//////////////////////////////
+const config = {
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__form-button",
+  inactiveButtonClass: "modal__form-button-inactive",
+  inputErrorClass: "modal__form-input-error",
+  errorClass: "modal__form-error-active",
+};
+
+const
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
