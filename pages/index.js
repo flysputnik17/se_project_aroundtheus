@@ -63,6 +63,7 @@ const imgTitle = imgModal.querySelector(".modal__img-title");
 
 /////////////////////////////////////////////////////////////validation//////////////////////////////
 const config = {
+  formSelector: ".modal__form",
   inputSelector: ".modal__form-input",
   submitButtonSelector: ".modal__form-button",
   inactiveButtonClass: "modal__form-button-inactive",
