@@ -70,11 +70,8 @@ const config = {
   errorClass: "modal__form-error-active",
 };
 
-const editForm = profileModal.querySelector(".modal__form"); //selecting the form in the edit modal for the validation errors display
-const addCardForm = addModal.querySelector(".modal__form"); //selecting the form in the add card modal fo the validation errors display
-
-const editFormValidator = new FormValidator(config, editForm); //creating a new var for the edit modal using the FormValidator class
-const addCardFormValidator = new FormValidator(config, addCardForm);
+const editFormValidator = new FormValidator(config, profileModal); //creating a new var for the edit modal using the FormValidator class
+const addCardFormValidator = new FormValidator(config, addModal);
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
@@ -113,22 +110,23 @@ function handleProfileFormSubmit(evt) {
 function handleImageClick(card) {
   imgTitle.textContent = card.title; //assining the card title to be the img title when the img popup is opening
   imgSrc.src = card.link;
-  imgTitle.alt = card.title;
+  imgSrc.alt = card.title;
   openPopup(imgModal);
+}
+
+function creatCard(cardItem) {
+  const cardElem = new Card(cardItem, "#card-template", handleImageClick);
+  return cardElem.getView();
 }
 
 function addCardElement(evt) {
   evt.preventDefault();
   const title = imgName.value; //name now will recive the value of the input that the user puts in the form
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
-  const cardElem = new Card(
-    { title, link },
-    "#card-template",
-    handleImageClick
-  ); //cardElem will be created from the Card class
-  const newCard = cardElem.getView();
+  const cardElem = creatCard({ title, link });
   evt.target.reset(); //reseting the inputs after user submit a form
-  cardListEl.prepend(newCard);
+  addCardFormValidator.enableValidation();
+  cardListEl.prepend(cardElem);
   closePopup(addModal);
 }
 
@@ -168,9 +166,8 @@ initialCards.forEach((data) => {
     title: data.name,
     link: data.link,
   };
-  const cardElement = new Card(cardData, "#card-template", handleImageClick);
-  const newCard = cardElement.getView();
-  cardListEl.append(newCard);
+  const cardElement = creatCard(cardData);
+  cardListEl.append(cardElement);
 }); //rendering the cards
 
 editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
