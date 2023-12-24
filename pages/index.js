@@ -70,7 +70,11 @@ const config = {
   errorClass: "modal__form-error-active",
 };
 
-const
+const editForm = profileModal.querySelector(".modal__form"); //selecting the form in the edit modal for the validation errors display
+const addCardForm = addModal.querySelector(".modal__form"); //selecting the form in the add card modal fo the validation errors display
+
+const editFormValidator = new FormValidator(config, editForm); //creating a new var for the edit modal using the FormValidator class
+const addCardFormValidator = new FormValidator(config, addCardForm);
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
@@ -168,3 +172,6 @@ initialCards.forEach((data) => {
   const newCard = cardElement.getView();
   cardListEl.append(newCard);
 }); //rendering the cards
+
+editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
+addCardFormValidator.enableValidation();

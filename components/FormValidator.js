@@ -24,23 +24,25 @@ export class FormValidator {
     }
   }
 
-  _showInputError() {
-    this._inputSelector.classList.add(this._errorClass);
-    this._inputSelector.textContent = errorMessage;
+  _showInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.classList.add(this._errorClass);
+    errorElement.textContent = inputElement.validationMessage;
   }
 
-  config;
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = "";
+  }
 
-  _checkInputValidity() {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(
-        this._form,
-        inputElement,
-        inputElement.validationMessage,
-        config
-      );
+      this._showInputError(inputElement);
     } else {
-      this.config(this._form, inputElement, config);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -52,7 +54,7 @@ export class FormValidator {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(this._form, inputElement, config); //iterating over each element of the arrray that is representing an input field and calling on every one of them the checkInputValidity function
+        this._checkInputValidity(inputElement); //iterating over each element of the arrray that is representing an input field and calling on every one of them the checkInputValidity function
         this._toggleButtonState();
       });
     });
@@ -62,6 +64,6 @@ export class FormValidator {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    setEventListeners();
+    this._setEventListeners();
   }
 }
