@@ -71,8 +71,8 @@ const config = {
   errorClass: "modal__form-error-active",
 };
 
-const editFormValidator = new FormValidator(config, profileModal); //creating a new var for the edit modal using the FormValidator class
-const addCardFormValidator = new FormValidator(config, addModal);
+const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
+const addCardFormValidator = new FormValidator(config, cardForm);
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
@@ -88,6 +88,7 @@ function closePopup(popup) {
   if (popup && popup.classList.contains("modal_opened")) {
     popup.classList.remove("modal_opened");
     document.removeEventListener("keydown", closeByEscape);
+    addCardFormValidator.resetValidation();
   }
 }
 
@@ -126,7 +127,6 @@ function addCardElement(evt) {
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
   const cardElem = creatCard({ title, link });
   evt.target.reset(); //reseting the inputs after user submit a form
-  addCardFormValidator.enableValidation();
   cardListEl.prepend(cardElem);
   closePopup(addModal);
 }
