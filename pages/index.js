@@ -88,7 +88,6 @@ function closePopup(popup) {
   if (popup && popup.classList.contains("modal_opened")) {
     popup.classList.remove("modal_opened");
     document.removeEventListener("keydown", closeByEscape);
-    addCardFormValidator.resetValidation();
   }
 }
 
@@ -127,6 +126,7 @@ function addCardElement(evt) {
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
   const cardElem = creatCard({ title, link });
   evt.target.reset(); //reseting the inputs after user submit a form
+  addCardFormValidator.resetValidation();
   cardListEl.prepend(cardElem);
   closePopup(addModal);
 }
@@ -135,9 +135,10 @@ function addCardElement(evt) {
 
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
-  openPopup(profileModal);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent; //open profile modal event
+  editFormValidator.resetValidation();
+  openPopup(profileModal);
 });
 
 modals.forEach((modal) => {
