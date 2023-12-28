@@ -14,7 +14,7 @@ export class FormValidator {
     });
   }
 
-  _toggleButtonState(inputElement) {
+  toggleButtonState(inputElement) {
     if (this._hasInvalidInput(inputElement)) {
       this.submitButton.classList.add(this._inactiveButtonClass);
       this.submitButton.disabled = true; //if the hasInvalidInput returning true that means that there is some invalid inputs and i need to disabled the button
@@ -47,24 +47,24 @@ export class FormValidator {
   }
 
   ///the serEventListeners function is the main function that listen to all events in the form its creating a array from all the forms that hade the class of modal
-  //and then for each of the elements in the array that was created it runing the _checkInputValidity and _toggleButtonState function on every input event in the form
+  //and then for each of the elements in the array that was created it runing the _checkInputValidity and toggleButtonState function on every input event in the form
   _setEventListeners() {
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
     this.submitButton = this._form.querySelector(this._submitButtonSelector);
-    this._toggleButtonState();
+    this.toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement); //iterating over each element of the arrray that is representing an input field and calling on every one of them the checkInputValidity function
-        this._toggleButtonState(inputElement);
+        this.toggleButtonState(inputElement);
       });
     });
   }
 
   //resetValidation funciton is a public func so i can call it from the index.js to reset the inputs and the submit buttons
   resetValidation() {
-    this._toggleButtonState();
+    this.toggleButtonState();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });

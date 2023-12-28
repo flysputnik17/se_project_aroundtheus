@@ -126,7 +126,7 @@ function addCardElement(evt) {
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
   const cardElem = creatCard({ title, link });
   evt.target.reset(); //reseting the inputs after user submit a form
-  addCardFormValidator.resetValidation();
+  addCardFormValidator.toggleButtonState();
   cardListEl.prepend(cardElem);
   closePopup(addModal);
 }
