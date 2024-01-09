@@ -163,10 +163,10 @@ cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
 
-initialCards.forEach((data) => {
+initialCards.forEach(({ name, link }) => {
   const cardData = {
-    title: data.name,
-    link: data.link,
+    title: name,
+    link: link,
   };
   const cardElement = creatCard(cardData);
   cardListEl.append(cardElement);
