@@ -31,47 +31,13 @@ const addCardFormValidator = new FormValidator(config, cardForm);
 const newEditPopup = new PopupWithForm(profileModal, handleProfileFormSubmit); //creating a new var for edit form from the popupWithForm class
 newEditPopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm(addModal, handleProfileFormSubmit); //creating a new var for the card form from the popupWithFrom class
-newCardPopup.setEventListeners();
-
-const userInfo = new UserInfo(profileName, profileJob);
+// const newCardPopup = new PopupWithForm(addModal, handleProfileFormSubmit); //creating a new var for the card form from the popupWithFrom class
+// newCardPopup.setEventListeners();
 
 const newImagePopup = new PopupWithImage(imgModal, imgTitle);
 newImagePopup.setEventListeners();
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
-
-///the if checking if the modal is opened and if there is a class modal_opened if the statement is true the function will add the classs and will activate the event on the document
-// function openPopup(popup) {
-//   if (popup && !popup.classList.contains("modal_opened")) {
-//     popup.classList.add("modal_opened");
-//     document.addEventListener("keydown", closeByEscape);
-//   }
-// }
-// ///this is the same function but here the class will be removed and the event will stop listen on the document
-// function closePopup(popup) {
-//   if (popup && popup.classList.contains("modal_opened")) {
-//     popup.classList.remove("modal_opened");
-//     document.removeEventListener("keydown", closeByEscape);
-//   }
-// }
-
-// function closeByEscape(evt) {
-//   if (evt.key === "Escape") {
-//     const openedPopup = document.querySelector(".modal_opened");
-//     if (openedPopup) {
-//       closePopup(openedPopup);
-//     }
-//   }
-// }
-
-function handleProfileFormSubmit() {
-  userInfo.setUserInfo(profileName, profileJob);
-  //evt.preventDefault(); //preventin the refresh of the page
-  // profileName.textContent = nameInput.value;
-  // profileJob.textContent = jobInput.value;
-  newEditPopup.close();
-}
 
 //function that opening the img popup
 function handleImageClick(card) {
@@ -94,42 +60,36 @@ function addCardElement(evt) {
   evt.target.reset(); //reseting the inputs after user submit a form
   addCardFormValidator.toggleButtonState();
   cardListEl.prepend(cardElem);
-  // closePopup(addModal);
   newCardPopup.close();
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
+const userInfo = new UserInfo(profileName, profileJob);
+
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
-  userInfo.getUserInfo();
+  const userData = userInfo.getUserInfo(); //storing the inputs textContent in the userData var
   editFormValidator.resetValidation();
-  //nameInput.value = profileName.textContent;
-  //jobInput.value = profileJob.textContent; //open profile modal event
-  // openPopup(profileModal);
+  nameInput.value = userData.name;
+  jobInput.value = userData.description;
   newEditPopup.open();
 });
 
-// modals.forEach((modal) => {
-//   modal.addEventListener("mousedown", (evt) => {
-//     if (evt.target.classList.contains("modal_opened")) {
-//       closePopup(modal);
-//     }
-//     if (evt.target.classList.contains("modal__close-button")) {
-//       closePopup(modal);
-//     }
-//   });
-// });
-
-profileForm.addEventListener("submit", handleProfileFormSubmit);
+function handleProfileFormSubmit(userData) {
+  const beforeValues = userInfo.getUserInfo();
+  console.log("before setUserInfo :", beforeValues);
+  userInfo.setUserInfo(userData.name, userData.description);
+  const afterValues = userInfo.getUserInfo();
+  console.log("after setUserInfo", afterValues);
+  console.log("click");
+  newEditPopup.close();
+}
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
-  // openPopup(addModal); //open add button event
   newCardPopup.open();
 });
-
-cardForm.addEventListener("submit", addCardElement);
 
 //////////////////// cards events //////////////////////
 
