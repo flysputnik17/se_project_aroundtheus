@@ -79,7 +79,7 @@ editButton.addEventListener("click", function () {
 function handleProfileFormSubmit(userData) {
   const beforeValues = userInfo.getUserInfo();
   console.log("before setUserInfo :", beforeValues);
-  userInfo.setUserInfo(userData.name, userData.description);
+  userInfo.setUserInfo(userData.name, userData.descripton);
   const afterValues = userInfo.getUserInfo();
   console.log("after setUserInfo", afterValues);
   console.log("click");
