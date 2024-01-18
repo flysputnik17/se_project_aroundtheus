@@ -18,15 +18,16 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach((input) => {
       inputValues[input.name] = input.value; //itreting over all the inputs and storing them in the inputList object
     });
-    console.log(inputValues);
     return inputValues;
   }
 
   setEventListeners() {
     this._popupForm.addEventListener("submit", (evt) => {
+      console.log("click");
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues()); //calling the submit funciton and pasing it the inputs object
     });
+
     super.setEventListeners(); //calling the parent setEvent method since the child method only waiting for a submit event but we need it also be ebale to listen for the
   }
 }

@@ -4,6 +4,7 @@ import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
 import {
   initialCards,
   editButton,
@@ -31,11 +32,16 @@ const addCardFormValidator = new FormValidator(config, cardForm);
 const newEditPopup = new PopupWithForm(profileModal, handleProfileFormSubmit); //creating a new var for edit form from the popupWithForm class
 newEditPopup.setEventListeners();
 
-// const newCardPopup = new PopupWithForm(addModal, handleProfileFormSubmit); //creating a new var for the card form from the popupWithFrom class
-// newCardPopup.setEventListeners();
+const newCardPopup = new PopupWithForm(addModal, addCardElement); //creating a new var for the card form from the popupWithFrom class
+newCardPopup.setEventListeners();
 
 const newImagePopup = new PopupWithImage(imgModal, imgTitle);
 newImagePopup.setEventListeners();
+
+const sectionCards = new Section(
+  { items: initialCards, renderer: createCard },
+  cardListEl
+);
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
@@ -47,8 +53,8 @@ function handleImageClick(card) {
   newImagePopup.open(imgTitle, imgSrc);
 }
 
-function creatCard(cardItem) {
-  const cardElem = new Card(cardItem, "#card-template", handleImageClick);
+function createCard(cardData) {
+  const cardElem = new Card(cardData, "#card-template", handleImageClick);
   return cardElem.getView();
 }
 
@@ -56,10 +62,10 @@ function addCardElement(evt) {
   evt.preventDefault();
   const title = imgName.value; //name now will recive the value of the input that the user puts in the form
   const link = imgUrl.value; //link now will recive the value of the url that the user inputs
-  const cardElem = creatCard({ title, link });
+  const cardElem = createCard({ title, link });
   evt.target.reset(); //reseting the inputs after user submit a form
   addCardFormValidator.toggleButtonState();
-  cardListEl.prepend(cardElem);
+  sectionCards.addItem(cardElem);
   newCardPopup.close();
 }
 
@@ -77,12 +83,7 @@ editButton.addEventListener("click", function () {
 });
 
 function handleProfileFormSubmit(userData) {
-  const beforeValues = userInfo.getUserInfo();
-  console.log("before setUserInfo :", beforeValues);
   userInfo.setUserInfo(userData.name, userData.descripton);
-  const afterValues = userInfo.getUserInfo();
-  console.log("after setUserInfo", afterValues);
-  console.log("click");
   newEditPopup.close();
 }
 
@@ -92,15 +93,7 @@ addButton.addEventListener("click", () => {
 });
 
 //////////////////// cards events //////////////////////
-
-initialCards.forEach(({ name, link }) => {
-  const cardData = {
-    title: name,
-    link: link,
-  };
-  const cardElement = creatCard(cardData);
-  cardListEl.append(cardElement);
-}); //rendering the cards
+sectionCards.renderItems();
 
 editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
 addCardFormValidator.enableValidation();
