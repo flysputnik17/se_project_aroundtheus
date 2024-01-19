@@ -17,4 +17,4 @@ This project is made so all the elements are displayed correctly on popular scre
 - [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
 
 **Images**  
-![alt-text](./images/MAIN%20PAGE.png)
+![alt-text](./src/images/MAIN%20PAGE.png)
