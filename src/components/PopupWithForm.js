@@ -3,7 +3,7 @@ import Popup from "./Popup.js";
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector });
-    this._popupForm = document.querySelector(".modal__form"); //selecting the popup form by its class modal_form
+    this._popupForm = this._popupElement.querySelector(".modal__form"); //selecting the popup form by its class modal_form
     this._inputList = this._popupForm.querySelectorAll(".modal__form-input"); //from the form selecting all the inputs
     this._handleFormSubmit = handleFormSubmit; //its the function for the submit
   }
@@ -23,7 +23,6 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     this._popupForm.addEventListener("submit", (evt) => {
-      console.log("click");
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues()); //calling the submit funciton and pasing it the inputs object
     });

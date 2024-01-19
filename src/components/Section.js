@@ -17,6 +17,6 @@ export default class Section {
   }
 
   addItem(element) {
-    this._cardSelector.append(element);
+    this._cardSelector.prepend(element);
   }
 }

@@ -26,6 +26,7 @@ import {
   imgTitle,
   config,
 } from "../utils/constants.js";
+
 const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
 const addCardFormValidator = new FormValidator(config, cardForm);
 
@@ -43,6 +44,8 @@ const sectionCards = new Section(
   cardListEl
 );
 
+const userInfo = new UserInfo(profileName, profileJob);
+
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
 //function that opening the img popup
@@ -58,20 +61,19 @@ function createCard(cardData) {
   return cardElem.getView();
 }
 
-function addCardElement(evt) {
-  evt.preventDefault();
-  const title = imgName.value; //name now will recive the value of the input that the user puts in the form
-  const link = imgUrl.value; //link now will recive the value of the url that the user inputs
-  const cardElem = createCard({ title, link });
-  evt.target.reset(); //reseting the inputs after user submit a form
-  addCardFormValidator.toggleButtonState();
-  sectionCards.addItem(cardElem);
+function addCardElement() {
+  const title = imgName.value; //storing the input name of the new place
+  const link = imgUrl.value; //storing the input URL of the new place
+  sectionCards.addItem(createCard({ title, link })); //passing to the addItem method of the Section class the createCard function with the name and link proporty the function creating a new card element and the addItem will add the new card to the DOM
   newCardPopup.close();
 }
 
-///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
+function handleProfileFormSubmit(userData) {
+  userInfo.setUserInfo(userData.name, userData.descripton);
+  newEditPopup.close();
+}
 
-const userInfo = new UserInfo(profileName, profileJob);
+///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
@@ -81,11 +83,6 @@ editButton.addEventListener("click", function () {
   jobInput.value = userData.description;
   newEditPopup.open();
 });
-
-function handleProfileFormSubmit(userData) {
-  userInfo.setUserInfo(userData.name, userData.descripton);
-  newEditPopup.close();
-}
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
