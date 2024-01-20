@@ -1,7 +1,6 @@
 import "../pages/index.css";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
-import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -31,21 +30,24 @@ import {
 const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
 const addCardFormValidator = new FormValidator(config, cardForm);
 
-const newEditPopup = new PopupWithForm(profileModal, handleProfileFormSubmit); //creating a new var for edit form from the popupWithForm class
+const newEditPopup = new PopupWithForm(
+  ".profile-modal",
+  handleProfileFormSubmit
+); //creating a new var for edit form from the popupWithForm class
 newEditPopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm(addModal, addCardElement); //creating a new var for the card form from the popupWithFrom class
+const newCardPopup = new PopupWithForm(".card-modal", addCardElement); //creating a new var for the card form from the popupWithFrom class
 newCardPopup.setEventListeners();
 
-const newImagePopup = new PopupWithImage(imgModal);
+const newImagePopup = new PopupWithImage(".image-modal");
 newImagePopup.setEventListeners();
 
 const sectionCards = new Section(
   { items: initialCards, renderer: createCard },
-  cardListEl
+  ".cards"
 );
 
-const userInfo = new UserInfo(profileName, profileJob);
+const userInfo = new UserInfo(".profile__name", ".profile__descripton");
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
