@@ -37,7 +37,7 @@ newEditPopup.setEventListeners();
 const newCardPopup = new PopupWithForm(addModal, addCardElement); //creating a new var for the card form from the popupWithFrom class
 newCardPopup.setEventListeners();
 
-const newImagePopup = new PopupWithImage(imgModal, imgTitle);
+const newImagePopup = new PopupWithImage(imgModal);
 newImagePopup.setEventListeners();
 
 const sectionCards = new Section(
@@ -51,10 +51,7 @@ const userInfo = new UserInfo(profileName, profileJob);
 
 //function that opening the img popup
 function handleImageClick(card) {
-  imgTitle.textContent = card.title; //assining the card title to be the img title when the img popup is opening
-  imgSrc.src = card.link;
-  imgSrc.alt = card.title;
-  newImagePopup.open(imgTitle, imgSrc);
+  newImagePopup.open(card);
 }
 
 function createCard(cardData) {
@@ -66,6 +63,7 @@ function addCardElement() {
   const title = imgName.value; //storing the input name of the new place
   const link = imgUrl.value; //storing the input URL of the new place
   sectionCards.addItem(createCard({ title, link })); //passing to the addItem method of the Section class the createCard function with the name and link proporty the function creating a new card element and the addItem will add the new card to the DOM
+  addCardFormValidator.resetValidation();
   newCardPopup.close();
 }
 
