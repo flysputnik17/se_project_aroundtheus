@@ -64,6 +64,7 @@ export class FormValidator {
 
   //resetValidation funciton is a public func so i can call it from the index.js to reset the inputs and the submit buttons
   resetValidation() {
+    this._form.reset();
     this.toggleButtonState();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);

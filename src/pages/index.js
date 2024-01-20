@@ -36,7 +36,8 @@ const newEditPopup = new PopupWithForm(
 ); //creating a new var for edit form from the popupWithForm class
 newEditPopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm(".card-modal", addCardElement); //creating a new var for the card form from the popupWithFrom class
+const newCardPopup = new PopupWithForm(".card-modal", addCardElement);
+//creating a new var for the card form from the popupWithFrom class
 newCardPopup.setEventListeners();
 
 const newImagePopup = new PopupWithImage(".image-modal");
@@ -61,10 +62,8 @@ function createCard(cardData) {
   return cardElem.getView();
 }
 
-function addCardElement() {
-  const title = imgName.value; //storing the input name of the new place
-  const link = imgUrl.value; //storing the input URL of the new place
-  sectionCards.addItem(createCard({ title, link })); //passing to the addItem method of the Section class the createCard function with the name and link proporty the function creating a new card element and the addItem will add the new card to the DOM
+function addCardElement(cardData) {
+  sectionCards.addItem(createCard(cardData));
   addCardFormValidator.resetValidation();
   newCardPopup.close();
 }
