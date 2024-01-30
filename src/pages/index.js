@@ -15,6 +15,7 @@ import {
   cardForm,
   config,
 } from "../utils/constants.js";
+import Api from "../components/Api.js";
 
 const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
 const addCardFormValidator = new FormValidator(config, cardForm);
@@ -52,26 +53,40 @@ function createCard(cardData) {
 }
 
 function addCardElement(cardData) {
-  sectionCards.addItem(createCard(cardData));
-  addCardFormValidator.resetValidation();
-  newCardPopup.close();
+  // sectionCards.addItem(createCard(cardData));
+  api.addNewCard(cardData.title, cardData.link).then(() => {
+    sectionCards.addItem(createCard(cardData));
+    addCardFormValidator.resetValidation();
+    newCardPopup.close();
+  });
 }
 
 function handleProfileFormSubmit(userData) {
-  userInfo.setUserInfo(userData.name, userData.descripton);
-  newEditPopup.close();
+  api
+    .updateUserInfo(userData.name, userData.descripton)
+    .then(() => {
+      userInfo.setUserInfo(userData.name, userData.descripton);
+      newEditPopup.close();
+    })
+    .catch((error) => {
+      console.error("Error in updateUserInfo:", error);
+      if (error instanceof SyntaxError) {
+        console.error("Response body:", error.body);
+      }
+    });
 }
 
-//branch test//
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
 editButton.addEventListener("click", function () {
-  const userData = userInfo.getUserInfo(); //storing the inputs textContent in the userData var
-  editFormValidator.resetValidation();
-  nameInput.value = userData.name;
-  jobInput.value = userData.description;
-  newEditPopup.open();
+  api.getUserInfo().then((userData) => {
+    userInfo.getUserInfo(userData.name, userData.about);
+    editFormValidator.resetValidation();
+    nameInput.value = userData.name;
+    jobInput.value = userData.about;
+    newEditPopup.open();
+  });
 });
 
 /////////// add modal events /////////////////////////
@@ -80,7 +95,22 @@ addButton.addEventListener("click", () => {
 });
 
 //////////////////// cards events //////////////////////
-sectionCards.renderItems();
 
 editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
 addCardFormValidator.enableValidation();
+
+const api = new Api({});
+
+api.getInitialCards().then((cards) => {
+  sectionCards.renderItems();
+  //by calling the api.getInitialCards method of this class and passing the renderItems method to the
+  //.then method if the get response is ok only then the renderItems will be called and the cards will
+  //be displyed to the page
+});
+
+api.getUserInfo().then((userData) => {
+  userInfo.setUserInfo(userData.name, userData.about); //by calling the api.getUserInfo method of this class
+  //and in the .then method after we get a response we calling the setUserInfo of the UserInfo class
+  //and passing it the userData as a propery{name and about} are proporty of the body we get from the
+  //API and in the setUserInfo we assinig the name and about to the name and description textContent
+});
