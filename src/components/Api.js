@@ -49,24 +49,41 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
+      .then((data) => {
+        this._items = data; // Update _items with the received data
+        return data;
+      })
+
       .catch((error) => {
         console.error("Error in getInitialCards:", error);
         return Promise.reject(error);
       });
   }
 
-  addNewCard(title, link) {
+  addNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: title,
+        name: name,
         link: link,
       }),
     })
       .then(this._checkResponse)
       .catch((error) => {
         console.error("Error in addNewCard:", error);
+        return Promise.reject(error);
+      });
+  }
+
+  deleteCard() {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .catch((error) => {
+        console.error("Error in deleteCard:", error);
         return Promise.reject(error);
       });
   }

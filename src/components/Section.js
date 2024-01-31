@@ -8,11 +8,13 @@ export default class Section {
   renderItems() {
     this._items.forEach(({ name, link }) => {
       const element = {
-        title: name,
+        name: name,
         link: link,
       };
       const newItem = this._renderer(element);
-      this.addItem(newItem);
+      setTimeout(() => {
+        this.addItem(newItem);
+      }, 0);
     });
   }
 

@@ -53,7 +53,7 @@ function createCard(cardData) {
 }
 
 function addCardElement(cardData) {
-  // sectionCards.addItem(createCard(cardData));
+  //sectionCards.addItem(createCard(cardData));
   api.addNewCard(cardData.title, cardData.link).then(() => {
     sectionCards.addItem(createCard(cardData));
     addCardFormValidator.resetValidation();
@@ -101,11 +101,12 @@ addCardFormValidator.enableValidation();
 
 const api = new Api({});
 
-api.getInitialCards().then((cards) => {
+api.getInitialCards().then((cardData) => {
+  cardData.forEach((card) => {
+    const newCard = createCard(card);
+    sectionCards.addItem(newCard);
+  });
   sectionCards.renderItems();
-  //by calling the api.getInitialCards method of this class and passing the renderItems method to the
-  //.then method if the get response is ok only then the renderItems will be called and the cards will
-  //be displyed to the page
 });
 
 api.getUserInfo().then((userData) => {
