@@ -13,6 +13,7 @@ import {
   nameInput,
   jobInput,
   cardForm,
+  card,
   config,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -48,8 +49,13 @@ function handleImageClick(card) {
 }
 
 function createCard(cardData) {
-  const cardElem = new Card(cardData, "#card-template", handleImageClick);
-  return cardElem.getView();
+  return new Card(
+    cardData,
+    cardData._id,
+    "#card-template",
+    handleImageClick,
+    handleDeleteButtonClick
+  ).getView();
 }
 
 function addCardElement(cardData) {
@@ -74,6 +80,13 @@ function handleProfileFormSubmit(userData) {
         console.error("Response body:", error.body);
       }
     });
+}
+
+function handleDeleteButtonClick(cardData) {
+  const cardId = cardData.cardId;
+  api.deleteCard(cardId).then(() => {
+    sectionCards.removeItem(card);
+  });
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////

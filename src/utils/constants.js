@@ -58,6 +58,8 @@ export const imgModal = document.querySelector(".image-modal");
 export const imgSrc = imgModal.querySelector(".modal__img-card-img");
 export const imgTitle = imgModal.querySelector(".modal__img-title");
 
+export const card = document.querySelector(".card");
+
 /////////////////////////////////////////////////////////////validation//////////////////////////////
 export const config = {
   formSelector: ".modal__form",

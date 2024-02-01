@@ -1,9 +1,17 @@
 export class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
+  constructor(
+    { name, link },
+    cardId,
+    cardSelector,
+    handleImageClick,
+    handleDeleteButton
+  ) {
     this.title = name;
     this.link = link;
+    this.cardId = cardId;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteButton = handleDeleteButton;
   }
 
   _handleLikeButton() {
@@ -11,8 +19,10 @@ export class Card {
   }
 
   _handleDeleteButton() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    // Check if there's a handler for delete button
+    if (this._handleDeleteButton) {
+      this._handleDeleteButton(this); // Call the handler, passing the card instance
+    }
   }
 
   _setEventListeners() {
@@ -25,7 +35,7 @@ export class Card {
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteButton();
+      this._handleDeleteButton(this);
     });
   }
 
