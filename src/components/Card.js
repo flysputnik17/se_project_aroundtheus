@@ -1,14 +1,13 @@
 export class Card {
   constructor(
-    { name, link },
-    cardId,
+    { name, link, _id },
     cardSelector,
     handleImageClick,
     handleDeleteButton
   ) {
     this.title = name;
     this.link = link;
-    this.cardId = cardId;
+    this.cardId = _id;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteButton = handleDeleteButton;
@@ -36,6 +35,7 @@ export class Card {
 
     this._deleteButton.addEventListener("click", () => {
       this._handleDeleteButton(this);
+      this._cardElement.remove(); //.remove to remove the card element from the webPage
     });
   }
 

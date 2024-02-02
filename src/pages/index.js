@@ -51,7 +51,6 @@ function handleImageClick(card) {
 function createCard(cardData) {
   return new Card(
     cardData,
-    cardData._id,
     "#card-template",
     handleImageClick,
     handleDeleteButtonClick
@@ -60,11 +59,13 @@ function createCard(cardData) {
 
 function addCardElement(cardData) {
   //sectionCards.addItem(createCard(cardData));
-  api.addNewCard(cardData.title, cardData.link).then((cardData) => {
-    sectionCards.addItem(createCard(cardData));
-    addCardFormValidator.resetValidation();
-    newCardPopup.close();
-  });
+  api
+    .addNewCard(cardData.title, cardData.link, cardData._id)
+    .then((cardData) => {
+      sectionCards.addItem(createCard(cardData));
+      addCardFormValidator.resetValidation();
+      newCardPopup.close();
+    });
 }
 
 function handleProfileFormSubmit(userData) {
@@ -84,9 +85,7 @@ function handleProfileFormSubmit(userData) {
 
 function handleDeleteButtonClick(cardData) {
   const cardId = cardData.cardId;
-  api.deleteCard(cardId).then(() => {
-    sectionCards.removeItem(card);
-  });
+  api.deleteCard(cardId);
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
