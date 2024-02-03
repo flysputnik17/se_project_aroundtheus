@@ -13,10 +13,10 @@ import {
   nameInput,
   jobInput,
   cardForm,
-  card,
   config,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
 const addCardFormValidator = new FormValidator(config, cardForm);
@@ -41,6 +41,13 @@ const sectionCards = new Section(
 
 const userInfo = new UserInfo(".profile__name", ".profile__descripton");
 
+const confirmationPopup = new PopupWithConfirmation(
+  ".confirmation-modal",
+  confirmDelete
+);
+
+const api = new Api({});
+
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
 //function that opening the img popup
@@ -53,7 +60,7 @@ function createCard(cardData) {
     cardData,
     "#card-template",
     handleImageClick,
-    handleDeleteButtonClick
+    handleConfirmation
   ).getView();
 }
 
@@ -83,9 +90,32 @@ function handleProfileFormSubmit(userData) {
     });
 }
 
-function handleDeleteButtonClick(cardData) {
-  const cardId = cardData.cardId;
-  api.deleteCard(cardId);
+/*
+handleConfirmation function is a card.js function what it does is taking a card
+element after that calling the setEventListeners of the confirmationPopup wich waiting
+for a card id and in the listener it has a submit lisstener to be active 
+and only then it will call the confirmDelete function 
+*/
+function handleConfirmation(card) {
+  confirmationPopup.open();
+  confirmationPopup.setEventListeners(card.cardId); //passing the card id of the card to the listener of the PopupWithConfirmation class
+}
+/*the confirmDelete function take a cardId parameter and then calling the api.delete
+method wich wating for a card id and then removing it from the server vie method:"DELETE"
+ */
+function confirmDelete(cardId) {
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      // Remove the card from the DOM after successful deletion
+      const cardToRemove = sectionCards.getItem(cardId);
+      if (cardToRemove) {
+        cardToRemove.remove();
+      }
+    })
+    .catch((error) => {
+      console.error("Error in confirmDelete:", error);
+    });
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
@@ -111,14 +141,12 @@ addButton.addEventListener("click", () => {
 editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
 addCardFormValidator.enableValidation();
 
-const api = new Api({});
-
+////////////////////API///////////////////////////////////
 api.getInitialCards().then((cardData) => {
   cardData.forEach((card) => {
     const newCard = createCard(card);
     sectionCards.addItem(newCard);
   });
-  sectionCards.renderItems();
   //by calling the api.getInitialCards method of this class and passing the renderItems method to the
   //.then method if the get response is ok only then the renderItems will be called and the cards will
   //be displyed to the page

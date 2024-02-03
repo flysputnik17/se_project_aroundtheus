@@ -49,11 +49,6 @@ export default class Api {
       headers: this._headers,
     })
       .then(this._checkResponse)
-      .then((data) => {
-        this._items = data; // Update _items with the received data
-        return data;
-      })
-
       .catch((error) => {
         console.error("Error in getInitialCards:", error);
         return Promise.reject(error);

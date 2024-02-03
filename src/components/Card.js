@@ -3,25 +3,18 @@ export class Card {
     { name, link, _id },
     cardSelector,
     handleImageClick,
-    handleDeleteButton
+    handleOpenPopup
   ) {
     this.title = name;
     this.link = link;
     this.cardId = _id;
     this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
-    this._handleDeleteButton = handleDeleteButton;
+    this._handleImageClick = handleImageClick; //passing the imgClick funtion form undex,js
+    this._handleOpenPopup = handleOpenPopup; //passing the open popup function from index.js so the popupConfirmation will open
   }
 
   _handleLikeButton() {
     this._likeButton.classList.toggle("card__description-button_liked");
-  }
-
-  _handleDeleteButton() {
-    // Check if there's a handler for delete button
-    if (this._handleDeleteButton) {
-      this._handleDeleteButton(this); // Call the handler, passing the card instance
-    }
   }
 
   _setEventListeners() {
@@ -34,8 +27,7 @@ export class Card {
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteButton(this);
-      this._cardElement.remove(); //.remove to remove the card element from the webPage
+      this._handleOpenPopup(this);
     });
   }
 
@@ -64,7 +56,7 @@ export class Card {
     this._cardTitleEl.textContent = this.title; //puting the title to the text content of the card that i resiving
     this._cardImageEl.src = this.link; //puting the link to src of the card to render the img
     this._cardImageEl.alt = this.title; //coping the title to put it as an alt of the img
-
+    this._cardImageEl._id = this.cardId;
     this._setEventListeners(); //calling the eventListeners
 
     return this._cardElement; ///returning the card element
