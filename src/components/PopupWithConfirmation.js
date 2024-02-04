@@ -9,8 +9,8 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners(cardId) {
     this._popupForm.addEventListener("submit", (evt) => {
-      this._handleDeleteButtonClick(cardId); //passing the confirmDelete function from the index.js with the cardId parameter
       evt.preventDefault();
+      this._handleDeleteButtonClick(cardId); //passing the confirmDelete function from the index.js with the cardId parameter
       super.close();
     });
     super.setEventListeners();

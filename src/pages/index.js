@@ -104,18 +104,9 @@ function handleConfirmation(card) {
 method wich wating for a card id and then removing it from the server vie method:"DELETE"
  */
 function confirmDelete(cardId) {
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      // Remove the card from the DOM after successful deletion
-      const cardToRemove = sectionCards.getItem(cardId);
-      if (cardToRemove) {
-        cardToRemove.remove();
-      }
-    })
-    .catch((error) => {
-      console.error("Error in confirmDelete:", error);
-    });
+  api.deleteCard(cardId).then(() => {
+    api.getInitialCards();
+  });
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////

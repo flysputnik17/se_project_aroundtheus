@@ -1,5 +1,5 @@
 export default class Section {
-  constructor({ items, renderer }, cardSelector) {
+  constructor({ items = [], renderer }, cardSelector) {
     this._items = items;
     this._renderer = renderer;
     this._cardSelector = document.querySelector(cardSelector);
@@ -22,9 +22,8 @@ export default class Section {
   addItem(element) {
     this._cardSelector.prepend(element);
   }
-  getItem(cardId) {
-    const foundCard = this._items.find((item) => item.id === cardId);
-    console.log("Found Card:", foundCard);
-    return foundCard;
+
+  deleteItem(element) {
+    this._cardSelector.remove(element);
   }
 }
