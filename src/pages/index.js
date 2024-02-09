@@ -41,10 +41,8 @@ const sectionCards = new Section(
 
 const userInfo = new UserInfo(".profile__name", ".profile__descripton");
 
-const confirmationPopup = new PopupWithConfirmation(
-  ".confirmation-modal",
-  confirmDelete
-);
+const confirmationPopup = new PopupWithConfirmation(".confirmation-modal");
+confirmationPopup.setEventListeners();
 
 const api = new Api({});
 
@@ -60,7 +58,8 @@ function createCard(cardData) {
     cardData,
     "#card-template",
     handleImageClick,
-    handleConfirmation
+    handleDeleteButtonClick,
+    handleLikedButtonClick
   ).getView();
 }
 
@@ -91,22 +90,47 @@ function handleProfileFormSubmit(userData) {
 }
 
 /*
-handleConfirmation function is a card.js function what it does is taking a card
-element after that calling the setEventListeners of the confirmationPopup wich waiting
-for a card id and in the listener it has a submit lisstener to be active 
-and only then it will call the confirmDelete function 
+handleDeleteButtonClick function will be called only after the click of the delete
+icon on the card that we want to delete
+the method will open the popup of the confirm modal and will wait for the submit 
+event , if the submit event is happaning only then the confirmationPopup.setSubmitAction()
 */
-function handleConfirmation(card) {
-  confirmationPopup.open();
-  confirmationPopup.setEventListeners(card.cardId); //passing the card id of the card to the listener of the PopupWithConfirmation class
-}
-/*the confirmDelete function take a cardId parameter and then calling the api.delete
-method wich wating for a card id and then removing it from the server vie method:"DELETE"
- */
-function confirmDelete(cardId) {
-  api.deleteCard(cardId).then(() => {
-    api.getInitialCards();
+function handleDeleteButtonClick(card) {
+  confirmationPopup.open(); //opening the popup
+  confirmationPopup.setSubmitAction(() => {
+    confirmationPopup.setDeleteLoading(true); //cahnge the text content of the confirm button
+    api
+      .deleteCard(card._id)
+      .then((result) => {
+        card.removeCardElement(result); //card.js method to remove the card_element
+      })
+      .catch((err) => {
+        console.error(`${err} Failed to delete post.`);
+      })
+      .finally(() => {
+        confirmationPopup.setDeleteLoading(false);
+      });
   });
+}
+/*
+handleLikedButtonClick funtion will be called after the event click on the like button
+this function is passed to the card class
+at the begining its checking if the isLiked is true or false and by the state
+of the isLiked its decide's wich api method to call 
+after the api call we manualy changing the isLiked atribute of the img with the
+setLike function from the card class that adding or removing the like button
+active class
+*/
+function handleLikedButtonClick(card) {
+  if (card.isLiked) {
+    api.dislikeCard(card._id).then((res) => {
+      card.setLike(res.isLiked);
+    });
+  } else {
+    api.likeCard(card._id).then((res) => {
+      card.setLike(res.isLiked);
+    });
+  }
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////

@@ -1,20 +1,36 @@
 export class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked },
     cardSelector,
     handleImageClick,
-    handleOpenPopup
+    handleDeleteClick,
+    handleLikedClick
   ) {
     this.title = name;
     this.link = link;
-    this.cardId = _id;
+    this._id = _id;
+    this.isLiked = isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick; //passing the imgClick funtion form undex,js
-    this._handleOpenPopup = handleOpenPopup; //passing the open popup function from index.js so the popupConfirmation will open
+    this._handleDeleteClick = handleDeleteClick; //passing the delete function from the index.js that will be triggerd when the delete icon is clicked
+    this._handleLikedClick = handleLikedClick; //passing the handleLikedButtonClick funciton from the index.js
   }
 
   _handleLikeButton() {
-    this._likeButton.classList.toggle("card__description-button_liked");
+    if (this.isLiked) {
+      this._likeButton.classList.add("card__description-button_liked");
+    } else {
+      this._likeButton.classList.remove("card__description-button_liked");
+    }
+  }
+
+  //this function will get a true or false from the api that we call before
+  //calling this function and then we pass the result of the api call to this
+  //function and set the isLiked manualy to the img
+  //also we calling the handleLikeButton to toggle the button classS
+  setLike(isLiked) {
+    this.isLiked = isLiked;
+    this._handleLikeButton(this);
   }
 
   _setEventListeners() {
@@ -23,11 +39,11 @@ export class Card {
     });
 
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton();
+      this._handleLikedClick(this);
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleOpenPopup(this);
+      this._handleDeleteClick(this); //the (this) is for that the code will know on wich card call the delete function
     });
   }
 
@@ -37,6 +53,12 @@ export class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+  }
+
+  //removeCardElement function will be called form the index.js to remove the card after all the eventListeners are active
+  removeCardElement() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
   ///////getView is a public function that returns a card element///////////////
@@ -56,8 +78,9 @@ export class Card {
     this._cardTitleEl.textContent = this.title; //puting the title to the text content of the card that i resiving
     this._cardImageEl.src = this.link; //puting the link to src of the card to render the img
     this._cardImageEl.alt = this.title; //coping the title to put it as an alt of the img
-    this._cardImageEl._id = this.cardId;
+
     this._setEventListeners(); //calling the eventListeners
+    this._handleLikeButton();
 
     return this._cardElement; ///returning the card element
   }

@@ -55,13 +55,14 @@ export default class Api {
       });
   }
 
-  addNewCard(name, link) {
+  addNewCard(name, link, _id) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
         link: link,
+        _id: _id,
       }),
     })
       .then(this._checkResponse)
@@ -79,6 +80,30 @@ export default class Api {
       .then(this._checkResponse)
       .catch((error) => {
         console.error("Error in deleteCard:", error);
+        return Promise.reject(error);
+      });
+  }
+
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .catch((error) => {
+        console.error("Error in the LikeCard:", error);
+        return Promise.reject(error);
+      });
+  }
+
+  dislikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._checkResponse)
+      .catch((error) => {
+        console.error("Error in dislikeCard:", error);
         return Promise.reject(error);
       });
   }

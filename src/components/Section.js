@@ -10,7 +10,7 @@ export default class Section {
       const element = {
         name: name,
         link: link,
-        cardId: _id, // Assuming _id is the cardId
+        _id: _id, // Assuming _id is the cardId
       };
       const newItem = this._renderer(element);
       setTimeout(() => {
@@ -20,10 +20,6 @@ export default class Section {
   }
 
   addItem(element) {
-    this._cardSelector.prepend(element);
-  }
-
-  deleteItem(element) {
-    this._cardSelector.remove(element);
+    this._cardSelector.append(element);
   }
 }
