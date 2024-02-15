@@ -28,6 +28,21 @@ export default class Api {
       });
   }
 
+  upDateAvater(link) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link,
+      }),
+    })
+      .then(this._checkResponse)
+      .catch((error) => {
+        console.error("Error in upDateAvatar:", error);
+        return Promise.reject(error);
+      });
+  }
+
   updateUserInfo(name, descripton) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
