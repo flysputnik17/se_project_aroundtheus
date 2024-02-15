@@ -18,6 +18,11 @@
       <main class="content">
         <section class="profile page__section">
           <div class="profile__content">
+            <button
+              class="profile__content-button"
+              type="button"
+              id="profile-content-button"
+            ></button>
             <img
               src="<%=require('./images/Avatar.png')%>"
               class="profile__img"
@@ -124,6 +129,30 @@
         <form class="modal__form" id="confirmation-form">
           <p class="modal__heading">Are you sure?</p>
           <button type="submit" class="modal__form-button">Yes</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="avatar-form" novalidate>
+          <fieldset class="modal__form-fieldset">
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-url-avatar"
+                class="modal__form-input"
+                type="url"
+                name="link"
+                placeholder="New Avatar link"
+                required
+              />
+              <span
+                class="modal__form-error modal__form-url-avatar-error"
+              ></span>
+            </div>
+          </fieldset>
+          <button class="modal__form-button" type="submit">Save</button>
         </form>
       </div>
     </div>

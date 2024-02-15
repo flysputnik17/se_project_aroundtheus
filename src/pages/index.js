@@ -13,6 +13,9 @@ import {
   nameInput,
   jobInput,
   cardForm,
+  updateAvatar,
+  avatarForm,
+  avatarImage,
   config,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -20,6 +23,7 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const editFormValidator = new FormValidator(config, profileForm); //creating a new var for the edit modal using the FormValidator class
 const addCardFormValidator = new FormValidator(config, cardForm);
+const avatarUpdateValidator = new FormValidator(config, avatarForm);
 
 const newEditPopup = new PopupWithForm(
   ".profile-modal",
@@ -31,6 +35,9 @@ const newCardPopup = new PopupWithForm(".card-modal", addCardElement);
 //creating a new var for the card form from the popupWithFrom class
 newCardPopup.setEventListeners();
 
+const avatarPopup = new PopupWithForm(".avatar-modal", upDateAvatar);
+avatarPopup.setEventListeners();
+
 const newImagePopup = new PopupWithImage(".image-modal");
 newImagePopup.setEventListeners();
 
@@ -39,7 +46,11 @@ const sectionCards = new Section(
   ".cards"
 );
 
-const userInfo = new UserInfo(".profile__name", ".profile__descripton");
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__descripton",
+  ".profile__img"
+);
 
 const confirmationPopup = new PopupWithConfirmation(".confirmation-modal");
 confirmationPopup.setEventListeners();
@@ -133,6 +144,16 @@ function handleLikedButtonClick(card) {
   }
 }
 
+function upDateAvatar(avatar) {
+  avatarPopup.setLoading(true);
+  api.upDateAvater(avatar.link).then((res) => {
+    avatarImage.src = res.avatar;
+  });
+  avatarUpdateValidator.resetValidation();
+  avatarPopup.setLoading(false);
+  avatarPopup.close();
+}
+
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
@@ -151,10 +172,15 @@ addButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
+updateAvatar.addEventListener("click", () => {
+  avatarPopup.open();
+});
+
 //////////////////// cards events //////////////////////
 
 editFormValidator.enableValidation(); //calling the enableValidation method from the new created var that has this method inside the class
 addCardFormValidator.enableValidation();
+avatarUpdateValidator.enableValidation();
 
 ////////////////////API///////////////////////////////////
 api.getInitialCards().then((cardData) => {
@@ -168,8 +194,8 @@ api.getInitialCards().then((cardData) => {
 });
 
 api.getUserInfo().then((userData) => {
-  userInfo.setUserInfo(userData.name, userData.about); //by calling the api.getUserInfo method of this class
+  userInfo.loadUserInfo(userData.name, userData.about, userData.avatar); //by calling the api.loadUserInfo method of this class
   //and in the .then method after we get a response we calling the setUserInfo of the UserInfo class
-  //and passing it the userData as a propery{name and about} are proporty of the body we get from the
+  //and passing it the userData as a propery{name,about and avatar} are proporty of the body we get from the
   //API and in the setUserInfo we assinig the name and about to the name and description textContent
 });

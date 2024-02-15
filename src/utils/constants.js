@@ -39,11 +39,17 @@ export const profileModal = document.querySelector(".profile-modal"); //the moda
 
 export const profileForm = document.forms["profile-form"]; //the modal form selecting
 
+export const avatarForm = document.forms["avatar-form"];
+
+export const avatarImage = document.querySelector(".profile__img");
+
 export const profileName = document.querySelector(".profile__name"); //the profile name from the page
 export const nameInput = profileModal.querySelector("#modal__form-name"); //the profile name input in modal
 
 export const profileJob = document.querySelector(".profile__descripton"); //the profile job from the page
 export const jobInput = profileModal.querySelector("#modal__form-job"); //the profile job input form modal
+
+export const updateAvatar = document.querySelector(".profile__content-button");
 
 /////////////////////////////////////// the Add modal elements selections ////////////////////////////////////////////////////////
 
