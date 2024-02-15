@@ -75,7 +75,6 @@ function createCard(cardData) {
 }
 
 function addCardElement(cardData) {
-  //sectionCards.addItem(createCard(cardData));
   api
     .addNewCard(cardData.title, cardData.link, cardData._id)
     .then((cardData) => {
