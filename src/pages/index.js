@@ -93,7 +93,6 @@ function addCardElement(cardData) {
     })
     .catch((error) => {
       console.error("Error in addNewCard:", error);
-      return Promise.reject(error);
     })
     .finally(() => {
       newCardPopup.setLoading(false);
@@ -140,7 +139,6 @@ function handleDeleteButtonClick(card) {
       .catch((err) => {
         console.error(`${err} Failed to delete post.`);
         console.error("Error in deleteCard:", error);
-        return Promise.reject(error);
       })
       .finally(() => {
         confirmationPopup.setDeleteLoading(false);
@@ -165,7 +163,6 @@ function handleLikedButtonClick(card) {
       })
       .catch((error) => {
         console.error("Error in dislikeCard:", error);
-        return Promise.reject(error);
       });
   } else {
     api
@@ -175,7 +172,6 @@ function handleLikedButtonClick(card) {
       })
       .catch((error) => {
         console.error("Error in the LikeCard:", error);
-        return Promise.reject(error);
       });
   }
 }
@@ -185,12 +181,11 @@ function upDateAvatar(avatar) {
   api
     .upDateAvater(avatar.link)
     .then((res) => {
-      avatarImage.src = res.avatar;
+      userInfo.loadUserInfo(res.name, res.about, res.avatar);
       avatarPopup.close();
     })
     .catch((error) => {
       console.error("Error in upDateAvatar:", error);
-      return Promise.reject(error);
     })
     .finally(() => {
       avatarPopup.setLoading(false);
@@ -200,25 +195,10 @@ function upDateAvatar(avatar) {
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
-// editButton.addEventListener("click", function () {
-//   api
-//     .getUserInfo()
-//     .then((userData) => {
-//       userInfo.getUserInfo(userData.name, userData.about);
-//       editFormValidator.resetValidation();
-//       nameInput.value = userData.name;
-//       jobInput.value = userData.about;
-//       newEditPopup.open();
-//     })
-//     .catch((error) => {
-//       console.error("Error in getUserInfo:", error);
-//       return Promise.reject(error);
-//     });
-// });
 
 editButton.addEventListener("click", function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  editFormValidator.resetValidation();
+  newEditPopup.setInputValues(userInfo.getUserInfo());
   newEditPopup.open();
 });
 
@@ -253,12 +233,16 @@ api
   })
   .catch((error) => {
     console.error("Error in getInitialCards:", error);
-    return Promise.reject(error);
   });
 
-api.getUserInfo().then((userData) => {
-  userInfo.loadUserInfo(userData.name, userData.about, userData.avatar); //by calling the api.loadUserInfo method of this class
-  //and in the .then method after we get a response we calling the setUserInfo of the UserInfo class
-  //and passing it the userData as a propery{name,about and avatar} are proporty of the body we get from the
-  //API and in the setUserInfo we assinig the name and about to the name and description textContent
-});
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.loadUserInfo(userData.name, userData.about, userData.avatar); //by calling the api.loadUserInfo method of this class
+    //and in the .then method after we get a response we calling the setUserInfo of the UserInfo class
+    //and passing it the userData as a propery{name,about and avatar} are proporty of the body we get from the
+    //API and in the setUserInfo we assinig the name and about to the name and description textContent
+  })
+  .catch((error) => {
+    console.error("Error in getUserInfo:", error);
+  });

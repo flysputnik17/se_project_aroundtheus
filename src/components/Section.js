@@ -2,7 +2,7 @@ export default class Section {
   constructor({ items = [], renderer }, cardElement) {
     this._items = items;
     this._renderer = renderer;
-    this._cardSelector = document.querySelector(cardElement);
+    this._cardsContainer = document.querySelector(cardElement);
   }
 
   renderItems() {
@@ -13,6 +13,6 @@ export default class Section {
   }
 
   addItem(element) {
-    this._cardSelector.prepend(element);
+    this._cardsContainer.prepend(element);
   }
 }
