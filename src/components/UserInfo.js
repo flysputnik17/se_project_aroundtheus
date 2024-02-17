@@ -18,8 +18,7 @@ export default class UserInfo {
   }
 
   loadUserInfo(name, description, avatar) {
-    this._name.textContent = name;
-    this._job.textContent = description;
+    this.setUserInfo(name, description);
     this._avatar.src = avatar;
   }
 }

@@ -1,10 +1,7 @@
 export default class Api {
-  constructor() {
-    this._baseUrl = "https://around-api.en.tripleten-services.com/v1";
-    this._headers = {
-      authorization: "bfb869e8-08ec-4b67-8cc1-518f5a35ed9e",
-      "Content-Type": "application/json",
-    };
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   //__checkResponse method for checking the response of the server requst if OK the ethod returning a JSON object else its returning an error status
@@ -20,12 +17,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in getUserInfo:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   upDateAvater(link) {
@@ -35,12 +27,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in upDateAvatar:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   updateUserInfo(name, descripton) {
@@ -51,23 +38,14 @@ export default class Api {
         name: name,
         about: descripton,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in updateUserInfo:", error);
-      });
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in getInitialCards:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   addNewCard(name, link, _id) {
@@ -79,47 +57,27 @@ export default class Api {
         link: link,
         _id: _id,
       }),
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in addNewCard:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in deleteCard:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in the LikeCard:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 
   dislikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        console.error("Error in dislikeCard:", error);
-        return Promise.reject(error);
-      });
+    }).then(this._checkResponse);
   }
 }

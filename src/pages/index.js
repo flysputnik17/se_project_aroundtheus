@@ -16,6 +16,8 @@ import {
   updateAvatar,
   avatarForm,
   avatarImage,
+  profileName,
+  profileJob,
   config,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -55,7 +57,13 @@ const userInfo = new UserInfo(
 const confirmationPopup = new PopupWithConfirmation(".confirmation-modal");
 confirmationPopup.setEventListeners();
 
-const api = new Api({});
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "bfb869e8-08ec-4b67-8cc1-518f5a35ed9e",
+    "Content-Type": "application/json",
+  },
+});
 
 ////////////////////////////////////////////////////// functions ///////////////////////////////////////////////////////////
 
@@ -75,17 +83,25 @@ function createCard(cardData) {
 }
 
 function addCardElement(cardData) {
-  //sectionCards.addItem(createCard(cardData));
+  newCardPopup.setLoading(true);
   api
     .addNewCard(cardData.title, cardData.link, cardData._id)
     .then((cardData) => {
       sectionCards.addItem(createCard(cardData));
       addCardFormValidator.resetValidation();
       newCardPopup.close();
+    })
+    .catch((error) => {
+      console.error("Error in addNewCard:", error);
+      return Promise.reject(error);
+    })
+    .finally(() => {
+      newCardPopup.setLoading(false);
     });
 }
 
 function handleProfileFormSubmit(userData) {
+  newEditPopup.setLoading(true);
   api
     .updateUserInfo(userData.name, userData.descripton)
     .then(() => {
@@ -97,6 +113,9 @@ function handleProfileFormSubmit(userData) {
       if (error instanceof SyntaxError) {
         console.error("Response body:", error.body);
       }
+    })
+    .finally(() => {
+      newEditPopup.setLoading(false);
     });
 }
 
@@ -114,9 +133,14 @@ function handleDeleteButtonClick(card) {
       .deleteCard(card._id)
       .then((result) => {
         card.removeCardElement(result); //card.js method to remove the card_element
+        if (result) {
+          confirmationPopup.close();
+        }
       })
       .catch((err) => {
         console.error(`${err} Failed to delete post.`);
+        console.error("Error in deleteCard:", error);
+        return Promise.reject(error);
       })
       .finally(() => {
         confirmationPopup.setDeleteLoading(false);
@@ -134,37 +158,70 @@ active class
 */
 function handleLikedButtonClick(card) {
   if (card.isLiked) {
-    api.dislikeCard(card._id).then((res) => {
-      card.setLike(res.isLiked);
-    });
+    api
+      .dislikeCard(card._id)
+      .then((res) => {
+        card.setLike(res.isLiked);
+      })
+      .catch((error) => {
+        console.error("Error in dislikeCard:", error);
+        return Promise.reject(error);
+      });
   } else {
-    api.likeCard(card._id).then((res) => {
-      card.setLike(res.isLiked);
-    });
+    api
+      .likeCard(card._id)
+      .then((res) => {
+        card.setLike(res.isLiked);
+      })
+      .catch((error) => {
+        console.error("Error in the LikeCard:", error);
+        return Promise.reject(error);
+      });
   }
 }
 
 function upDateAvatar(avatar) {
   avatarPopup.setLoading(true);
-  api.upDateAvater(avatar.link).then((res) => {
-    avatarImage.src = res.avatar;
-  });
-  avatarUpdateValidator.resetValidation();
-  avatarPopup.setLoading(false);
-  avatarPopup.close();
+  api
+    .upDateAvater(avatar.link)
+    .then((res) => {
+      avatarImage.src = res.avatar;
+      avatarPopup.close();
+      avatarUpdateValidator.resetValidation();
+    })
+    .catch((error) => {
+      console.error("Error in upDateAvatar:", error);
+      return Promise.reject(error);
+    })
+    .finally(() => {
+      avatarPopup.setLoading(false);
+      avatarUpdateValidator.resetValidation();
+    });
 }
 
 ///////////////////////////////////////////////////////// Event Listeners /////////////////////////////////////////////////////////////////
 
 //////////////////////////// modal events ///////////////////
+// editButton.addEventListener("click", function () {
+//   api
+//     .getUserInfo()
+//     .then((userData) => {
+//       userInfo.getUserInfo(userData.name, userData.about);
+//       editFormValidator.resetValidation();
+//       nameInput.value = userData.name;
+//       jobInput.value = userData.about;
+//       newEditPopup.open();
+//     })
+//     .catch((error) => {
+//       console.error("Error in getUserInfo:", error);
+//       return Promise.reject(error);
+//     });
+// });
+
 editButton.addEventListener("click", function () {
-  api.getUserInfo().then((userData) => {
-    userInfo.getUserInfo(userData.name, userData.about);
-    editFormValidator.resetValidation();
-    nameInput.value = userData.name;
-    jobInput.value = userData.about;
-    newEditPopup.open();
-  });
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  newEditPopup.open();
 });
 
 /////////// add modal events /////////////////////////
@@ -183,15 +240,21 @@ addCardFormValidator.enableValidation();
 avatarUpdateValidator.enableValidation();
 
 ////////////////////API///////////////////////////////////
-api.getInitialCards().then((cardData) => {
-  cardData.forEach((card) => {
-    const newCard = createCard(card);
-    sectionCards.addItem(newCard);
+api
+  .getInitialCards()
+  .then((cardData) => {
+    cardData.forEach((card) => {
+      const newCard = createCard(card);
+      sectionCards.addItem(newCard);
+    });
+    //by calling the api.getInitialCards method of this class and passing the renderItems method to the
+    //.then method if the get response is ok only then the renderItems will be called and the cards will
+    //be displyed to the page
+  })
+  .catch((error) => {
+    console.error("Error in getInitialCards:", error);
+    return Promise.reject(error);
   });
-  //by calling the api.getInitialCards method of this class and passing the renderItems method to the
-  //.then method if the get response is ok only then the renderItems will be called and the cards will
-  //be displyed to the page
-});
 
 api.getUserInfo().then((userData) => {
   userInfo.loadUserInfo(userData.name, userData.about, userData.avatar); //by calling the api.loadUserInfo method of this class
