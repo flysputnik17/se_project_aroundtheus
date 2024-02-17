@@ -186,7 +186,6 @@ function upDateAvatar(avatar) {
     .upDateAvater(avatar.link)
     .then((res) => {
       avatarImage.src = res.avatar;
-      avatarUpdateValidator.resetValidation();
       avatarPopup.close();
     })
     .catch((error) => {
@@ -225,10 +224,12 @@ editButton.addEventListener("click", function () {
 
 /////////// add modal events /////////////////////////
 addButton.addEventListener("click", () => {
+  addCardFormValidator.resetValidation();
   newCardPopup.open();
 });
 
 updateAvatar.addEventListener("click", () => {
+  avatarUpdateValidator.resetValidation();
   avatarPopup.open();
 });
 
