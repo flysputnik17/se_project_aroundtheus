@@ -186,8 +186,8 @@ function upDateAvatar(avatar) {
     .upDateAvater(avatar.link)
     .then((res) => {
       avatarImage.src = res.avatar;
-      avatarPopup.close();
       avatarUpdateValidator.resetValidation();
+      avatarPopup.close();
     })
     .catch((error) => {
       console.error("Error in upDateAvatar:", error);
@@ -195,7 +195,6 @@ function upDateAvatar(avatar) {
     })
     .finally(() => {
       avatarPopup.setLoading(false);
-      avatarUpdateValidator.resetValidation();
     });
 }
 
