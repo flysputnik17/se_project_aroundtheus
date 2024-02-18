@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>around the us</title>
+  </head>
+  <body class="page">
+    <div class="page__content">
+      <header class="header page__section">
+        <img
+          src="<%=require('./images/Vector.svg')%>"
+          class="logo"
+          alt="Logo"
+        />
+      </header>
+      <main class="content">
+        <section class="profile page__section">
+          <div class="profile__content">
+            <button
+              class="profile__content-button"
+              type="button"
+              id="profile-content-button"
+            ></button>
+            <img
+              src="<%=require('./images/Avatar.png')%>"
+              class="profile__img"
+              alt="avatar"
+            />
+            <div class="profile__info">
+              <h1 class="profile__name">Jacques Cousteau</h1>
+              <button class="profile__edit-button" type="button"></button>
+              <p class="profile__descripton">Explorer</p>
+            </div>
+            <button class="profile__add-button" type="button"></button>
+          </div>
+        </section>
+        <section class="elements page__section">
+          <ul class="cards"></ul>
+        </section>
+      </main>
+      <footer class="footer page__section">
+        <h2 class="footer__author">© 2022 Around The U.S.</h2>
+      </footer>
+    </div>
+    <div class="modal profile-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-button"></button>
+        <h2 class="modal__heading">Edit profile</h2>
+        <form class="modal__form" id="profile-form" novalidate>
+          <fieldset class="modal__form-fieldset">
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-name"
+                class="modal__form-input"
+                type="text"
+                name="name"
+                placeholder="name"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="modal__form-error modal__form-name-error"></span>
+            </div>
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-job"
+                class="modal__form-input"
+                type="text"
+                name="descripton"
+                placeholder="description"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="modal__form-error modal__form-job-error"></span>
+            </div>
+          </fieldset>
+          <button type="submit" class="modal__form-button">Save</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal card-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h2 class="modal__heading">New place</h2>
+        <form class="modal__form" id="card-form" novalidate>
+          <fieldset class="modal__form-fieldset">
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-title"
+                class="modal__form-input"
+                type="text"
+                name="title"
+                placeholder="Title"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span class="modal__form-error modal__form-title-error"></span>
+            </div>
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-url"
+                class="modal__form-input"
+                type="url"
+                name="link"
+                placeholder="Image link"
+                required
+              />
+              <span class="modal__form-error modal__form-url-error"></span>
+            </div>
+          </fieldset>
+          <button class="modal__form-button" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal image-modal">
+      <div class="modal__img-container">
+        <button class="modal__img-close-button modal__close-button"></button>
+        <img src="" alt="random" class="modal__img-card-img" />
+        <p class="modal__img-title"></p>
+      </div>
+    </div>
+    <div class="modal confirmation-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <form class="modal__form" id="confirmation-form">
+          <p class="modal__heading">Are you sure?</p>
+          <button type="submit" class="modal__form-button">Yes</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="avatar-form" novalidate>
+          <fieldset class="modal__form-fieldset">
+            <div class="fieldset-continer">
+              <input
+                id="modal__form-url-avatar"
+                class="modal__form-input"
+                type="url"
+                name="link"
+                placeholder="New Avatar link"
+                required
+              />
+              <span
+                class="modal__form-error modal__form-url-avatar-error"
+              ></span>
+            </div>
+          </fieldset>
+          <button class="modal__form-button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <li class="card" data-id="{{id}}">
+        <img src="" alt="" class="card__img" />
+        <div class="card__description">
+          <h2 class="card__description-title"></h2>
+          <button class="card__description-button" type="button"></button>
+        </div>
+        <button class="card__delete-button" type="button"></button>
+      </li>
+    </template>
+  </body>
+</html>
